@@ -1021,6 +1021,8 @@ ImDiskDeviceThread(IN PVOID Context)
         KeSetEvent(&device_thread_data->created_event, (KPRIORITY)0, FALSE);
     else
     {
+        ImDiskMountManagerMount(device_thread_data->create_data->DriveLetter,
+            device_thread_data->create_data->DeviceNumber);
         ImDiskCreateDriveLetter(device_thread_data->create_data->DriveLetter,
             device_thread_data->create_data->DeviceNumber);
 
@@ -1130,7 +1132,10 @@ ImDiskDeviceThread(IN PVOID Context)
 
             if (device_extension->drive_letter != 0)
                 if (system_drive_letter)
+                {
+                    ImDiskMountManagerUnmount(device_extension->drive_letter);
                     ImDiskRemoveDriveLetter(device_extension->drive_letter);
+                }
 
             ImDiskCloseProxy(&device_extension->proxy);
 

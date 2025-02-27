@@ -1013,9 +1013,13 @@ ImDiskAddVirtualDisk(IN PDRIVER_OBJECT DriverObject,
     }
 
     if (CreateData->DriveLetter != 0)
-        if (KeGetCurrentIrql() == PASSIVE_LEVEL)
+        if (KeGetCurrentIrql() == PASSIVE_LEVEL) 
+        {
+            ImDiskMountManagerMount(CreateData->DriveLetter,
+                CreateData->DeviceNumber);
             ImDiskCreateDriveLetter(CreateData->DriveLetter,
                 CreateData->DeviceNumber);
+        }
 
     return STATUS_SUCCESS;
 }
@@ -1235,6 +1239,131 @@ ImDiskRemoveDriveLetter(IN WCHAR DriveLetter)
     return status;
 }
 
+VOID 
+ImDiskGetDosNameFromNumber (LPWSTR dosname, int cbDosName, WCHAR DriveLetter, DeviceNamespaceType namespaceType)
+{
+    WCHAR tmp[3] = {DriveLetter, ':', 0};
+
+    if (DeviceNamespaceGlobal == namespaceType)
+    {
+        wcscpy_s(dosname, cbDosName/sizeof(WCHAR), (LPWSTR) DOS_MOUNT_PREFIX_GLOBAL);
+    }
+    else
+    {
+        wcscpy_s(dosname, cbDosName/sizeof(WCHAR), (LPWSTR) DOS_MOUNT_PREFIX_DEFAULT);
+    }
+
+	wcscat_s(dosname, cbDosName / sizeof(WCHAR), tmp);
+}
+
+NTSTATUS
+ImDiskDeviceIoControl (PWSTR deviceName, ULONG IoControlCode, void *InputBuffer, ULONG InputBufferSize, void *OutputBuffer, ULONG OutputBufferSize)
+{
+    IO_STATUS_BLOCK ioStatusBlock;
+    NTSTATUS ntStatus;
+    PIRP irp;
+    PFILE_OBJECT fileObject;
+    PDEVICE_OBJECT deviceObject;
+    KEVENT event;
+    UNICODE_STRING name;
+
+    RtlInitUnicodeString(&name, deviceName);
+    ntStatus = IoGetDeviceObjectPointer (&name, FILE_READ_ATTRIBUTES, &fileObject, &deviceObject);
+
+    if (!NT_SUCCESS (ntStatus))
+        return ntStatus;
+
+    KeInitializeEvent(&event, NotificationEvent, FALSE);
+
+    irp = IoBuildDeviceIoControlRequest (IoControlCode,
+        deviceObject,
+        InputBuffer, InputBufferSize,
+        OutputBuffer, OutputBufferSize,
+        FALSE,
+        &event,
+        &ioStatusBlock);
+
+    if (irp == NULL)
+    {
+        KdPrint (("IRP allocation failed\n"));
+        ntStatus = STATUS_INSUFFICIENT_RESOURCES;
+        goto ret;
+    }
+
+    IoGetNextIrpStackLocation (irp)->FileObject = fileObject;
+
+    ntStatus = IoCallDriver (deviceObject, irp);
+    if (ntStatus == STATUS_PENDING)
+    {
+        KeWaitForSingleObject (&event, Executive, KernelMode, FALSE, NULL);
+        ntStatus = ioStatusBlock.Status;
+    }
+
+ret:
+    ObDereferenceObject (fileObject);
+    return ntStatus;
+}
+
+NTSTATUS
+ImDiskMountManagerMount(IN WCHAR DriveLetter,
+    IN ULONG DeviceNumber)
+{
+    NTSTATUS ntStatus;
+    WCHAR arrVolume[256];
+    char buf[200];
+    PMOUNTMGR_TARGET_NAME in = (PMOUNTMGR_TARGET_NAME) buf;
+    PMOUNTMGR_CREATE_POINT_INPUT point = (PMOUNTMGR_CREATE_POINT_INPUT) buf;
+
+    _snwprintf(arrVolume, sizeof(arrVolume)/sizeof(WCHAR), IMDISK_DEVICE_BASE_NAME L"%u", DeviceNumber);
+    in->DeviceNameLength = (USHORT) wcslen (arrVolume) * sizeof(WCHAR);
+    wcscpy_s(in->DeviceName, (sizeof(buf) - sizeof(in->DeviceNameLength))/sizeof(WCHAR), arrVolume);
+
+    ntStatus = ImDiskDeviceIoControl (MOUNTMGR_DEVICE_NAME, IOCTL_MOUNTMGR_VOLUME_ARRIVAL_NOTIFICATION,
+        in, (ULONG) (sizeof (in->DeviceNameLength) + wcslen (arrVolume) * sizeof(WCHAR)), 0, 0);
+
+    KdPrint(("ImDisk: Mount Manager Mount IOCTL_MOUNTMGR_VOLUME_ARRIVAL_NOTIFICATION '%wc' (%i), returned 0x%08x.\n", DriveLetter, DeviceNumber, ntStatus));
+
+    memset (buf, 0, sizeof buf);
+    ImDiskGetDosNameFromNumber ((PWSTR) &point[1], sizeof(buf) - sizeof(MOUNTMGR_CREATE_POINT_INPUT), DriveLetter, DeviceNamespaceDefault);
+
+    point->SymbolicLinkNameOffset = sizeof (MOUNTMGR_CREATE_POINT_INPUT);
+    point->SymbolicLinkNameLength = (USHORT) wcslen ((PWSTR) &point[1]) * sizeof(WCHAR);
+
+    point->DeviceNameOffset = point->SymbolicLinkNameOffset + point->SymbolicLinkNameLength;
+    _snwprintf((PWSTR) (buf + point->DeviceNameOffset), (sizeof(buf) - point->DeviceNameOffset)/sizeof(WCHAR), IMDISK_DEVICE_BASE_NAME L"%u", DeviceNumber);
+    point->DeviceNameLength = (USHORT) wcslen ((PWSTR) (buf + point->DeviceNameOffset)) * sizeof(WCHAR);
+
+    ntStatus = ImDiskDeviceIoControl (MOUNTMGR_DEVICE_NAME, IOCTL_MOUNTMGR_CREATE_POINT, point,
+        point->DeviceNameOffset + point->DeviceNameLength, 0, 0);
+
+    KdPrint(("ImDisk: Mount Manager Mount IOCTL_MOUNTMGR_CREATE_POINT '%wc' (%i), returned 0x%08x.\n", DriveLetter, DeviceNumber, ntStatus));
+
+    return ntStatus;
+}
+
+NTSTATUS
+ImDiskMountManagerUnmount(IN WCHAR DriveLetter)
+{
+    NTSTATUS ntStatus;
+    char buf[256], out[300];
+    PMOUNTMGR_MOUNT_POINT in = (PMOUNTMGR_MOUNT_POINT) buf;
+
+    memset (buf, 0, sizeof buf);
+
+    ImDiskGetDosNameFromNumber((PWSTR) &in[1], sizeof(buf) - sizeof(MOUNTMGR_MOUNT_POINT), DriveLetter, DeviceNamespaceDefault);
+
+    // Only symbolic link can be deleted with IOCTL_MOUNTMGR_DELETE_POINTS. If any other entry is specified, the mount manager will ignore subsequent IOCTL_MOUNTMGR_VOLUME_ARRIVAL_NOTIFICATION for the same volume ID.
+    in->SymbolicLinkNameOffset = sizeof (MOUNTMGR_MOUNT_POINT);
+    in->SymbolicLinkNameLength = (USHORT) wcslen ((PWCHAR) &in[1]) * 2;
+
+    ntStatus = ImDiskDeviceIoControl (MOUNTMGR_DEVICE_NAME, IOCTL_MOUNTMGR_DELETE_POINTS,
+        in, sizeof(MOUNTMGR_MOUNT_POINT) + in->SymbolicLinkNameLength, out, sizeof out);
+
+    KdPrint(("ImDisk: Mount Manager Unmount IOCTL_MOUNTMGR_DELETE_POINTS '%wc', returned 0x%08x.\n", DriveLetter, ntStatus));
+
+    return ntStatus;
+}
+
 #pragma code_seg()
 
 #if DEBUG_LEVEL >= 1
@@ -1325,7 +1454,10 @@ ImDiskRemoveVirtualDisk(IN PDEVICE_OBJECT DeviceObject)
 
     if (device_extension->drive_letter != 0)
         if (KeGetCurrentIrql() == PASSIVE_LEVEL)
+        {
+            ImDiskMountManagerUnmount(device_extension->drive_letter);
             ImDiskRemoveDriveLetter(device_extension->drive_letter);
+        }
 
     KeSetEvent(&device_extension->terminate_thread, (KPRIORITY)0, FALSE);
 }

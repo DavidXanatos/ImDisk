@@ -1780,73 +1780,166 @@ ImDiskDispatchDeviceControl(IN PDEVICE_OBJECT DeviceObject,
         break;
     }
 
-    /*     case IOCTL_MOUNTDEV_QUERY_DEVICE_NAME: */
-    /*       { */
-    /* 	PMOUNTDEV_NAME mountdev_name = Irp->AssociatedIrp.SystemBuffer; */
-    /* 	int chars; */
+    case IOCTL_MOUNTDEV_QUERY_DEVICE_NAME:
+    {
+        PMOUNTDEV_NAME mountdev_name = (PMOUNTDEV_NAME)Irp->AssociatedIrp.SystemBuffer;
+        int chars;
 
-    /* 	KdPrint(("ImDisk: IOCTL_MOUNTDEV_QUERY_DEVICE_NAME for device %i.\n", */
-    /* 		 device_extension->device_number)); */
+        KdPrint(("ImDisk: IOCTL_MOUNTDEV_QUERY_DEVICE_NAME for device %i (letter %C:).\n",
+            device_extension->device_number, device_extension->drive_letter ? device_extension->drive_letter : L'_'));
 
-    /* 	if ((io_stack->Parameters.DeviceIoControl.OutputBufferLength == 4) & */
-    /* 	    (device_extension->drive_letter != 0)) */
-    /* 	  { */
-    /* 	    mountdev_name->Name[0] = device_extension->drive_letter; */
-    /* 	    mountdev_name->Name[1] = L':'; */
-    /* 	    chars = 2; */
-    /* 	  } */
-    /* 	else */
-    /* 	  chars = */
-    /* 	    _snwprintf(mountdev_name->Name, */
-    /* 		       (io_stack-> */
-    /* 			Parameters.DeviceIoControl.OutputBufferLength - */
-    /* 			FIELD_OFFSET(MOUNTDEV_NAME, Name)) >> 1, */
-    /* 		       IMDISK_DEVICE_BASE_NAME L"%u", */
-    /* 		       device_extension->device_number); */
-    /* // 	  else */
-    /* // 	  chars = */
-    /* // 	  _snwprintf(mountdev_name->Name, */
-    /* // 	  (io_stack-> */
-    /* // 	  Parameters.DeviceIoControl.OutputBufferLength - */
-    /* // 	  FIELD_OFFSET(MOUNTDEV_NAME, Name)) >> 1, */
-    /* // 	  L"\\DosDevices\\%wc:", */
-    /* // 	  device_extension->drive_letter); */
+        //if ((io_stack->Parameters.DeviceIoControl.OutputBufferLength == 4) && (device_extension->drive_letter != 0))
+        //{
+        //    mountdev_name->Name[0] = device_extension->drive_letter;
+        //    mountdev_name->Name[1] = L':';
+        //    chars = 2;
+        //}
+        //else
+        
+        chars = _snwprintf(mountdev_name->Name, (io_stack->Parameters.DeviceIoControl.OutputBufferLength - FIELD_OFFSET(MOUNTDEV_NAME, Name)) >> 1, 
+            IMDISK_DEVICE_BASE_NAME L"%u", device_extension->device_number);
+            //L"\\DosDevices\\%wc:", device_extension->drive_letter);
 
-    /* 	if (chars < 0) */
-    /* 	  { */
-    /* 	    if (io_stack->Parameters.DeviceIoControl.OutputBufferLength >= */
-    /* 		FIELD_OFFSET(MOUNTDEV_NAME, Name) + */
-    /* 		sizeof(mountdev_name->NameLength)) */
-    /* 	      mountdev_name->NameLength = sizeof(IMDISK_DEVICE_BASE_NAME) + */
-    /* 		20; */
+        if (chars < 0)
+        {
+            if (io_stack->Parameters.DeviceIoControl.OutputBufferLength >=
+                FIELD_OFFSET(MOUNTDEV_NAME, Name) +
+                sizeof(mountdev_name->NameLength))
+                mountdev_name->NameLength = sizeof(IMDISK_DEVICE_BASE_NAME) +
+                20;
 
-    /* 	    KdPrint(("ImDisk: IOCTL_MOUNTDEV_QUERY_DEVICE_NAME overflow, " */
-    /* 		     "buffer length %u, returned %i.\n", */
-    /* 		     io_stack->Parameters.DeviceIoControl.OutputBufferLength, */
-    /* 		     chars)); */
+            KdPrint(("ImDisk: IOCTL_MOUNTDEV_QUERY_DEVICE_NAME overflow, "
+                "buffer length %u, returned %i.\n",
+                io_stack->Parameters.DeviceIoControl.OutputBufferLength,
+                chars));
 
-    /* 	    status = STATUS_BUFFER_OVERFLOW; */
+            status = STATUS_BUFFER_OVERFLOW;
 
-    /* 	    if (io_stack->Parameters.DeviceIoControl.OutputBufferLength >= */
-    /* 		sizeof(MOUNTDEV_NAME)) */
-    /* 	      Irp->IoStatus.Information = sizeof(MOUNTDEV_NAME); */
+            if (io_stack->Parameters.DeviceIoControl.OutputBufferLength >=
+                sizeof(MOUNTDEV_NAME))
+                Irp->IoStatus.Information = sizeof(MOUNTDEV_NAME);
 
-    /* 	    break; */
-    /* 	  } */
+            break;
+        }
 
-    /* 	mountdev_name->NameLength = (USHORT) chars << 1; */
+        mountdev_name->NameLength = (USHORT)chars << 1;
+        
+        status = STATUS_SUCCESS;
+        Irp->IoStatus.Information = FIELD_OFFSET(MOUNTDEV_NAME, Name) + mountdev_name->NameLength;
 
-    /* 	status = STATUS_SUCCESS; */
-    /* 	Irp->IoStatus.Information = */
-    /* 	  FIELD_OFFSET(MOUNTDEV_NAME, Name) + mountdev_name->NameLength; */
+        KdPrint(("ImDisk: IOCTL_MOUNTDEV_QUERY_DEVICE_NAME returning %ws, length %u total %u.\n",
+            mountdev_name->Name, mountdev_name->NameLength, Irp->IoStatus.Information));
 
-    /* 	KdPrint(("ImDisk: IOCTL_MOUNTDEV_QUERY_DEVICE_NAME returning %ws, " */
-    /* 		 "length %u total %u.\n", */
-    /* 		 mountdev_name->Name, mountdev_name->NameLength, */
-    /* 		 Irp->IoStatus.Information)); */
+        break;
+    }
 
-    /* 	break; */
-    /*       } */
+    case IOCTL_MOUNTDEV_QUERY_UNIQUE_ID:
+        KdPrint(("ImDisk: IOCTL_MOUNTDEV_QUERY_UNIQUE_ID\n"));
+        if (io_stack->Parameters.DeviceIoControl.OutputBufferLength < sizeof (MOUNTDEV_UNIQUE_ID))
+        {
+            Irp->IoStatus.Information = sizeof (MOUNTDEV_UNIQUE_ID);
+            status = STATUS_BUFFER_OVERFLOW;
+        }
+        else
+        {
+            ULONG outLength;
+            CHAR volId[128];//, tmp[] = { 0,0 };
+            PMOUNTDEV_UNIQUE_ID outputBuffer = (PMOUNTDEV_UNIQUE_ID) Irp->AssociatedIrp.SystemBuffer;
+
+            //strcpy_s (volId, sizeof(volId),IMDISK_UNIQUE_ID_PREFIX);
+            //tmp[0] = (char)device_extension->device_number;
+            //strcat_s (volId, sizeof(volId),tmp);
+            _snprintf(volId, sizeof(volId) - 1, IMDISK_UNIQUE_ID_PREFIX "%u", device_extension->device_number);
+
+            outputBuffer->UniqueIdLength = (USHORT) strlen (volId);
+            outLength = (ULONG) (strlen (volId) + sizeof (USHORT));
+
+            if (io_stack->Parameters.DeviceIoControl.OutputBufferLength < outLength)
+            {
+                Irp->IoStatus.Information = sizeof (MOUNTDEV_UNIQUE_ID);
+                status = STATUS_BUFFER_OVERFLOW;
+                break;
+            }
+
+            RtlCopyMemory ((PCHAR)outputBuffer->UniqueId, volId, strlen (volId));
+
+            status = STATUS_SUCCESS;
+            Irp->IoStatus.Information = outLength;
+
+            KdPrint(("ImDisk: IOCTL_MOUNTDEV_QUERY_UNIQUE_ID returning %s, length %u total %u.\n",
+                outputBuffer->UniqueId, outputBuffer->UniqueIdLength, Irp->IoStatus.Information));
+        }
+        break;
+
+    case IOCTL_VOLUME_GET_GPT_ATTRIBUTES:
+        KdPrint(("ImDisk: IOCTL_VOLUME_GET_GPT_ATTRIBUTES\n"));
+        status = STATUS_INVALID_DEVICE_REQUEST;
+        Irp->IoStatus.Information = 0;
+        break;
+
+    case IOCTL_MOUNTDEV_QUERY_SUGGESTED_LINK_NAME:
+        KdPrint(("ImDisk: IOCTL_MOUNTDEV_QUERY_SUGGESTED_LINK_NAME\n"));
+        {
+            ULONG outLength;
+            UNICODE_STRING ntUnicodeString;
+            WCHAR ntName[256];
+            PMOUNTDEV_SUGGESTED_LINK_NAME outputBuffer = (PMOUNTDEV_SUGGESTED_LINK_NAME) Irp->AssociatedIrp.SystemBuffer;
+
+            if (io_stack->Parameters.DeviceIoControl.OutputBufferLength < sizeof (MOUNTDEV_SUGGESTED_LINK_NAME))
+            {
+                status = STATUS_INVALID_PARAMETER;
+                Irp->IoStatus.Information = 0;
+                break;
+            }
+
+            ImDiskGetDosNameFromNumber (ntName, sizeof(ntName), device_extension->drive_letter, DeviceNamespaceDefault);
+            RtlInitUnicodeString (&ntUnicodeString, ntName);
+
+            outLength = FIELD_OFFSET(MOUNTDEV_SUGGESTED_LINK_NAME,Name) + ntUnicodeString.Length;
+
+            outputBuffer->UseOnlyIfThereAreNoOtherLinks = FALSE;
+            outputBuffer->NameLength = ntUnicodeString.Length;
+
+            if(io_stack->Parameters.DeviceIoControl.OutputBufferLength < outLength)
+            {
+                Irp->IoStatus.Information = sizeof (MOUNTDEV_SUGGESTED_LINK_NAME);
+                status = STATUS_BUFFER_OVERFLOW;
+                break;
+            }
+
+            RtlCopyMemory ((PCHAR)outputBuffer->Name,ntUnicodeString.Buffer, ntUnicodeString.Length);
+
+            status = STATUS_SUCCESS;
+            Irp->IoStatus.Information = outLength;
+
+            KdPrint(("ImDisk: IOCTL_MOUNTDEV_QUERY_SUGGESTED_LINK_NAME returning %ws, length %u total %u.\n",
+                outputBuffer->Name, outputBuffer->NameLength, Irp->IoStatus.Information));
+        }
+        break;
+
+    case IOCTL_VOLUME_IS_DYNAMIC:
+        KdPrint(("ImDisk: IOCTL_VOLUME_IS_DYNAMIC\n"));
+        status = STATUS_INVALID_DEVICE_REQUEST;
+        Irp->IoStatus.Information = 0;
+        break;
+
+    case IOCTL_MOUNTDEV_LINK_CREATED:
+        KdPrint(("ImDisk: IOCTL_MOUNTDEV_LINK_CREATED\n"));
+        status = STATUS_INVALID_DEVICE_REQUEST;
+        Irp->IoStatus.Information = 0;		
+        break;
+
+    case IOCTL_VOLUME_ONLINE:
+        KdPrint(("ImDisk: IOCTL_VOLUME_ONLINE\n"));
+        status = STATUS_SUCCESS;
+        Irp->IoStatus.Information = 0;
+        break;
+
+    case IOCTL_VOLUME_POST_ONLINE:
+        KdPrint(("ImDisk: IOCTL_VOLUME_POST_ONLINE\n"));
+        status = STATUS_INVALID_DEVICE_REQUEST;
+        Irp->IoStatus.Information = 0;
+        break;
 
     default:
     {

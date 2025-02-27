@@ -50,6 +50,8 @@ Copyright (C) The Regents of the University of California.
 #include <ntddcdrm.h>
 #include <ntverp.h>
 #include <mountmgr.h>
+#include <mountdev.h>
+#include <ntddvol.h>
 #include <stdio.h>
 
 ///
@@ -241,6 +243,13 @@ ImDiskCreateDriveLetter(IN WCHAR DriveLetter,
 NTSTATUS
 ImDiskRemoveDriveLetter(IN WCHAR DriveLetter);
 
+NTSTATUS
+ImDiskMountManagerMount(IN WCHAR DriveLetter,
+    IN ULONG DeviceNumber);
+
+NTSTATUS
+ImDiskMountManagerUnmount(IN WCHAR DriveLetter);
+
 VOID
 ImDiskRemoveVirtualDisk(IN PDEVICE_OBJECT DeviceObject);
 
@@ -354,6 +363,21 @@ ImDiskFloppyFormat(IN PDEVICE_EXTENSION Extension,
     IN PIRP Irp);
 
 #endif // INCLUDE_GPL_ORIGIN
+
+
+typedef enum
+{
+    DeviceNamespaceDefault,
+    DeviceNamespaceGlobal,
+} DeviceNamespaceType;
+
+#define DOS_MOUNT_PREFIX_DEFAULT L"\\DosDevices\\"
+#define DOS_MOUNT_PREFIX_GLOBAL L"\\GLOBAL??\\"
+
+VOID 
+ImDiskGetDosNameFromNumber (LPWSTR dosname, int cbDosName, WCHAR DriveLetter, DeviceNamespaceType namespaceType);
+
+
 
 #ifdef _AMD64_
 
