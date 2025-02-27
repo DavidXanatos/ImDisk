@@ -51,6 +51,7 @@ OTHER DEALINGS IN THE SOFTWARE.
 ///
 /// Base names for device objects created in \Device
 ///
+#define IMDISK_UNIQUE_ID_PREFIX         "ImDisk"
 #define IMDISK_DEVICE_DIR_NAME         _T("\\Device")
 #define IMDISK_DEVICE_BASE_NAME        IMDISK_DEVICE_DIR_NAME  _T("\\ImDisk")
 #define IMDISK_CTL_DEVICE_NAME         IMDISK_DEVICE_BASE_NAME _T("Ctl")
