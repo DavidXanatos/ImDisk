@@ -1,5 +1,5 @@
 /*
-No-GUI support for the ImDisk Virtual Disk Driver for Windows NT/2000/XP.
+No-GUI support for the ImDisk Virtual Disk Driver for Windows 7/10/11.
 
 Copyright (C) 2007-2023 Olof Lagerkvist.
 

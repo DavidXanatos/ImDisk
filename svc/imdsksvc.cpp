@@ -1,6 +1,6 @@
 /*
 I/O Packet Forwarder Service for the ImDisk Virtual Disk Driver for
-Windows NT/2000/XP.
+Windows 7/10/11.
 This service redirects I/O requests sent to the ImDisk Virtual Disk Driver
 to another computer through a serial communication interface or by opening
 a TCP/IP connection.

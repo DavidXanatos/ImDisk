@@ -1,7 +1,8 @@
 /*
 
-Control program for the ImDisk Virtual Disk Driver for Windows NT/2000/XP.
+Control program for the ImDisk Virtual Disk Driver for Windows 7/10/11.
 
+Copyright (C) 2025 David Xanatos.
 Copyright (C) 2004-2023 Olof Lagerkvist.
 
 Permission is hereby granted, free of charge, to any person
@@ -1961,12 +1962,13 @@ wmain(int argc, LPWSTR argv[])
         if (wcscmp(argv[1], L"--version") == 0)
         {
             printf
-            ("Control program for the ImDisk Virtual Disk Driver for Windows NT/2000/XP.\n"
+            ("Control program for the ImDisk Virtual Disk Driver for Windows 7/10/11.\n"
                 "Version %i.%i.%i - (Compiled " __DATE__ ")\n"
                 "\n"
+                "Copyright (C) 2025 David Xanatos.\n"
                 "Copyright (C) 2004-2023 Olof Lagerkvist.\n"
                 "\n"
-                "http://www.ltr-data.se     olof@ltr-data.se\n"
+                "http://xanasoft.com\n"
                 "\n"
                 "Permission is hereby granted, free of charge, to any person\n"
                 "obtaining a copy of this software and associated documentation\n"
@@ -2673,7 +2675,7 @@ wmainCRTStartup()
     {
 #ifndef _M_ARM
         MessageBoxA(NULL,
-            "This program requires Windows NT/2000/XP.",
+            "This program requires Windows 7/10/11.",
             "ImDisk Virtual Disk Driver",
             MB_ICONSTOP);
 #endif

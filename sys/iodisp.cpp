@@ -1,10 +1,11 @@
 /*
-ImDisk Virtual Disk Driver for Windows NT/2000/XP.
+ImDisk Virtual Disk Driver for Windows 7/10/11.
 This driver emulates harddisk partitions, floppy drives and CD/DVD-ROM
 drives from disk image files, in virtual memory or by redirecting I/O
 requests somewhere else, possibly to another machine, through a
 co-operating user-mode service, ImDskSvc.
 
+Copyright (C) 2025 David Xanatos.
 Copyright (C) 2005-2026 Olof Lagerkvist.
 
 Permission is hereby granted, free of charge, to any person
@@ -1935,11 +1936,11 @@ ImDiskDispatchDeviceControl(IN PDEVICE_OBJECT DeviceObject,
         Irp->IoStatus.Information = 0;
         break;
 
-    case IOCTL_VOLUME_POST_ONLINE:
-        KdPrint(("ImDisk: IOCTL_VOLUME_POST_ONLINE\n"));
-        status = STATUS_INVALID_DEVICE_REQUEST;
-        Irp->IoStatus.Information = 0;
-        break;
+    //case IOCTL_VOLUME_POST_ONLINE: // win 8 and later
+    //    KdPrint(("ImDisk: IOCTL_VOLUME_POST_ONLINE\n"));
+    //    status = STATUS_INVALID_DEVICE_REQUEST;
+    //    Irp->IoStatus.Information = 0;
+    //    break;
 
     default:
     {

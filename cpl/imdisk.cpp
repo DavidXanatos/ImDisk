@@ -1,7 +1,8 @@
 /*
 Control Panel Applet for the ImDisk Virtual Disk Driver for
-Windows NT/2000/XP.
+Windows 7/10/11.
 
+Copyright (C) 2025 David Xanatos.
 Copyright (C) 2007-2023 Olof Lagerkvist.
 
 Permission is hereby granted, free of charge, to any person
@@ -2142,11 +2143,13 @@ CPlAppletDlgProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                 (hWnd,
                 L"About ImDisk Virtual Disk Driver"
                 L"|"  // Boundary dialog caption text/textbox text
-                L"ImDisk Virtual Disk Driver for Windows NT/2000/XP/2003.\r\n"
+                L"ImDisk Virtual Disk Driver for Windows 7/10/11.\r\n"
                 L"Version %1!i!.%2!i!.%3!i! - (Compiled %4!hs!)\r\n"
                 L"\r\n"
+                L"Copyright (C) 2025 David Xanatos.\n"
                 L"Copyright (C) 2004-2023 Olof Lagerkvist.\r\n"
-                L"http://www.ltr-data.se     olof@ltr-data.se\r\n"
+                L"\r\n"
+                L"http://xanasoft.com\r\n"
                 L"\r\n"
                 L"Permission is hereby granted, free of charge, to any person\r\n"
                 L"obtaining a copy of this software and associated documentation\r\n"

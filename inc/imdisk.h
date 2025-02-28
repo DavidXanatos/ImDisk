@@ -1,6 +1,7 @@
 /*
-ImDisk Virtual Disk Driver for Windows NT/2000/XP.
+ImDisk Virtual Disk Driver for Windows 7/10/11.
 
+Copyright (C) 2025 David Xanatos.
 Copyright (C) 2005-2026 Olof Lagerkvist.
 
 Permission is hereby granted, free of charge, to any person

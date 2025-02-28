@@ -1,5 +1,5 @@
 /*
-API library for the ImDisk Virtual Disk Driver for Windows NT/2000/XP.
+API library for the ImDisk Virtual Disk Driver for Windows 7/10/11.
 
 Copyright (C) 2007-2023 Olof Lagerkvist.
 
@@ -532,7 +532,7 @@ ImDiskGetPartitionInfoIndirectEx(IN HANDLE Handle,
         {
             BOOL read_next_ebr = TRUE;
             PMBR_PARTITION_TABLE ebr_partition_table =
-                (PMBR_PARTITION_TABLE)(buffer + ((SIZE_T)SectorSize << 1) - 66);
+                (PMBR_PARTITION_TABLE)(buffer + ((LONG_PTR)SectorSize << 1) - 66);
 
             first_ebr_offset.QuadPart = Offset->QuadPart +
                 partition_information.StartingOffset.QuadPart;
@@ -1081,7 +1081,7 @@ ImDiskRemoveMountPoint(LPCWSTR MountPoint)
     if ((wcscmp(MountPoint + 1, L":") == 0 ||
         wcscmp(MountPoint + 1, L":\\") == 0))
     {
-        DWORD_PTR dwp = 0;
+        DWORD_PTR dwp;
         DEV_BROADCAST_VOLUME dev_broadcast_volume = {
             sizeof(DEV_BROADCAST_VOLUME),
             DBT_DEVTYP_VOLUME
@@ -1435,7 +1435,7 @@ ImDiskGetDeviceList()
 {
     UNICODE_STRING file_name;
     HANDLE driver;
-    ULONGLONG device_list = 0;
+    ULONGLONG device_list = { 0 };
     DWORD dw;
 
     RtlInitUnicodeString(&file_name, IMDISK_CTL_DEVICE_NAME);
@@ -2975,7 +2975,7 @@ ImDiskBuildMBR(IN PDISK_GEOMETRY DiskGeometry OPTIONAL,
 
     for (i = 0; i < NumberOfPartitions; i++)
     {
-        LPBYTE partition_entry = MBR + 512 - 66 + ((size_t)i << 4);
+        LPBYTE partition_entry = MBR + 512 - 66 + ((SIZE_T)i << 4);
 
         ULONGLONG start_sector =
             PartitionInformation[i].StartingOffset.QuadPart /

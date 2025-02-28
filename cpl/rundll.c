@@ -1,6 +1,6 @@
 /*
 rundll32.exe compatible functions for the ImDisk Virtual Disk Driver for
-Windows NT/2000/XP.
+Windows 7/10/11.
 
 Copyright (C) 2007-2023 Olof Lagerkvist.
 

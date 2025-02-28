@@ -1,510 +1,181 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
-    <ProjectConfiguration Include="Win7 Debug|ARM">
-      <Configuration>Win7 Debug</Configuration>
-      <Platform>ARM</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="Win7 Debug|ARM64">
-      <Configuration>Win7 Debug</Configuration>
+    <ProjectConfiguration Include="Debug|ARM64">
+      <Configuration>Debug</Configuration>
       <Platform>ARM64</Platform>
     </ProjectConfiguration>
-    <ProjectConfiguration Include="Win7 Release|ARM">
-      <Configuration>Win7 Release</Configuration>
-      <Platform>ARM</Platform>
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
     </ProjectConfiguration>
-    <ProjectConfiguration Include="Win7 Release|ARM64">
-      <Configuration>Win7 Release</Configuration>
+    <ProjectConfiguration Include="Release|ARM64">
+      <Configuration>Release</Configuration>
       <Platform>ARM64</Platform>
     </ProjectConfiguration>
-    <ProjectConfiguration Include="Win8 Debug|ARM">
-      <Configuration>Win8 Debug</Configuration>
-      <Platform>ARM</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="Win8 Debug|ARM64">
-      <Configuration>Win8 Debug</Configuration>
-      <Platform>ARM64</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="Win8 Release|ARM">
-      <Configuration>Win8 Release</Configuration>
-      <Platform>ARM</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="Win8 Release|ARM64">
-      <Configuration>Win8 Release</Configuration>
-      <Platform>ARM64</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="Win8.1 Debug|ARM">
-      <Configuration>Win8.1 Debug</Configuration>
-      <Platform>ARM</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="Win8.1 Debug|ARM64">
-      <Configuration>Win8.1 Debug</Configuration>
-      <Platform>ARM64</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="Win8.1 Debug|Win32">
-      <Configuration>Win8.1 Debug</Configuration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
       <Platform>Win32</Platform>
     </ProjectConfiguration>
-    <ProjectConfiguration Include="Win8 Debug|Win32">
-      <Configuration>Win8 Debug</Configuration>
-      <Platform>Win32</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="Win7 Debug|Win32">
-      <Configuration>Win7 Debug</Configuration>
-      <Platform>Win32</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="Win8.1 Release|ARM">
-      <Configuration>Win8.1 Release</Configuration>
-      <Platform>ARM</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="Win8.1 Release|ARM64">
-      <Configuration>Win8.1 Release</Configuration>
-      <Platform>ARM64</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="Win8.1 Release|Win32">
-      <Configuration>Win8.1 Release</Configuration>
-      <Platform>Win32</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="Win8 Release|Win32">
-      <Configuration>Win8 Release</Configuration>
-      <Platform>Win32</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="Win7 Release|Win32">
-      <Configuration>Win7 Release</Configuration>
-      <Platform>Win32</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="Win8.1 Debug|x64">
-      <Configuration>Win8.1 Debug</Configuration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
       <Platform>x64</Platform>
     </ProjectConfiguration>
-    <ProjectConfiguration Include="Win8 Debug|x64">
-      <Configuration>Win8 Debug</Configuration>
-      <Platform>x64</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="Win7 Debug|x64">
-      <Configuration>Win7 Debug</Configuration>
-      <Platform>x64</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="Win8.1 Release|x64">
-      <Configuration>Win8.1 Release</Configuration>
-      <Platform>x64</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="Win8 Release|x64">
-      <Configuration>Win8 Release</Configuration>
-      <Platform>x64</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="Win7 Release|x64">
-      <Configuration>Win7 Release</Configuration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
-  <PropertyGroup Label="PropertySheets">
-    <ConfigurationType>Driver</ConfigurationType>
-    <DriverType>WDM</DriverType>
-    <TARGETNAME>imdisk</TARGETNAME>
-    <Configuration Condition="'$(Configuration)' == ''">Win8.1 Debug</Configuration>
-    <Platform Condition="'$(Platform)' == ''">Win32</Platform>
-  </PropertyGroup>
-  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
-  <PropertyGroup Label="PropertySheets">
-    <ConversionToolVersion>1.0</ConversionToolVersion>
-    <BUILD_ALT_DIR>$(Configuration.Replace(' ',''))</BUILD_ALT_DIR>
-    <IntDir Condition="'$(Platform)'!='Win32'">$(BUILD_ALT_DIR)\$(Platform)\</IntDir>
-    <IntDir Condition="'$(Platform)'=='Win32'">$(BUILD_ALT_DIR)\x86\</IntDir>
-    <OutDir>$(IntDir)</OutDir>
-  </PropertyGroup>
-  <ImportGroup Label="PreConfiguration">
-    <Import Project="$(VCTargetsPath)\WDKConversion\PreConfiguration.props" />
-  </ImportGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{A8D2019C-5E20-48DA-87D6-33F373617A1C}</ProjectGuid>
-    <RootNamespace>$(MSBuildProjectName)</RootNamespace>
+    <TemplateGuid>{dd38f7fc-d7bd-488b-9242-7d8754cde80d}</TemplateGuid>
+    <MinimumVisualStudioVersion>12.0</MinimumVisualStudioVersion>
+    <Configuration>Debug</Configuration>
+    <Platform Condition="'$(Platform)' == ''">Win32</Platform>
+    <RootNamespace>deviodrv</RootNamespace>
+    <WindowsTargetPlatformVersion>$(LatestTargetPlatformVersion)</WindowsTargetPlatformVersion>
   </PropertyGroup>
-  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Win8.1 Debug|Win32'">
-    <TargetVersion>WindowsV6.3</TargetVersion>
-    <UseDebugLibraries>True</UseDebugLibraries>
-    <PlatformToolset>WindowsKernelModeDriver8.1</PlatformToolset>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Win8.1 Debug|ARM'" Label="Configuration">
-    <TargetVersion>WindowsV6.3</TargetVersion>
-    <UseDebugLibraries>True</UseDebugLibraries>
-    <PlatformToolset>WindowsKernelModeDriver8.1</PlatformToolset>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Win8.1 Debug|ARM64'" Label="Configuration">
-    <UseDebugLibraries>True</UseDebugLibraries>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>WindowsKernelModeDriver10.0</PlatformToolset>
+    <ConfigurationType>Driver</ConfigurationType>
+    <DriverType>WDM</DriverType>
+    <TargetVersion>Windows7</TargetVersion>
   </PropertyGroup>
-  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Win8 Debug|Win32'">
-    <TargetVersion>Win8</TargetVersion>
-    <UseDebugLibraries>True</UseDebugLibraries>
-    <PlatformToolset>WindowsKernelModeDriver8.1</PlatformToolset>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Win8 Debug|ARM'" Label="Configuration">
-    <TargetVersion>Win8</TargetVersion>
-    <UseDebugLibraries>True</UseDebugLibraries>
-    <PlatformToolset>WindowsKernelModeDriver8.1</PlatformToolset>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Win8 Debug|ARM64'" Label="Configuration">
-    <UseDebugLibraries>True</UseDebugLibraries>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'" Label="Configuration">
+    <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>WindowsKernelModeDriver10.0</PlatformToolset>
+    <ConfigurationType>Driver</ConfigurationType>
+    <DriverType>WDM</DriverType>
+    <TargetVersion>
+    </TargetVersion>
   </PropertyGroup>
-  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Win7 Debug|Win32'">
-    <TargetVersion>Win7</TargetVersion>
-    <UseDebugLibraries>True</UseDebugLibraries>
-    <PlatformToolset>WindowsKernelModeDriver8.1</PlatformToolset>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Win7 Debug|ARM'" Label="Configuration">
-    <TargetVersion>Win7</TargetVersion>
-    <UseDebugLibraries>True</UseDebugLibraries>
-    <PlatformToolset>WindowsKernelModeDriver8.1</PlatformToolset>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Win7 Debug|ARM64'" Label="Configuration">
-    <UseDebugLibraries>True</UseDebugLibraries>
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>WindowsKernelModeDriver10.0</PlatformToolset>
+    <ConfigurationType>Driver</ConfigurationType>
+    <DriverType>WDM</DriverType>
+    <TargetVersion>Windows7</TargetVersion>
   </PropertyGroup>
-  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Win8.1 Release|Win32'">
-    <TargetVersion>WindowsV6.3</TargetVersion>
-    <UseDebugLibraries>False</UseDebugLibraries>
-    <PlatformToolset>WindowsKernelModeDriver8.1</PlatformToolset>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Win8.1 Release|ARM'" Label="Configuration">
-    <TargetVersion>WindowsV6.3</TargetVersion>
-    <UseDebugLibraries>False</UseDebugLibraries>
-    <PlatformToolset>WindowsKernelModeDriver8.1</PlatformToolset>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Win8.1 Release|ARM64'" Label="Configuration">
-    <UseDebugLibraries>False</UseDebugLibraries>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'" Label="Configuration">
+    <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>WindowsKernelModeDriver10.0</PlatformToolset>
+    <ConfigurationType>Driver</ConfigurationType>
+    <DriverType>WDM</DriverType>
+    <TargetVersion>
+    </TargetVersion>
   </PropertyGroup>
-  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Win8 Release|Win32'">
-    <TargetVersion>Win8</TargetVersion>
-    <UseDebugLibraries>False</UseDebugLibraries>
-    <PlatformToolset>WindowsKernelModeDriver8.1</PlatformToolset>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Win8 Release|ARM'" Label="Configuration">
-    <TargetVersion>Win8</TargetVersion>
-    <UseDebugLibraries>False</UseDebugLibraries>
-    <PlatformToolset>WindowsKernelModeDriver8.1</PlatformToolset>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Win8 Release|ARM64'" Label="Configuration">
-    <UseDebugLibraries>False</UseDebugLibraries>
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>WindowsKernelModeDriver10.0</PlatformToolset>
+    <ConfigurationType>Driver</ConfigurationType>
+    <DriverType>WDM</DriverType>
+    <TargetVersion>Windows7</TargetVersion>
   </PropertyGroup>
-  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Win7 Release|Win32'">
-    <TargetVersion>Win7</TargetVersion>
-    <UseDebugLibraries>False</UseDebugLibraries>
-    <PlatformToolset>WindowsKernelModeDriver8.1</PlatformToolset>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Win7 Release|ARM'" Label="Configuration">
-    <TargetVersion>Win7</TargetVersion>
-    <UseDebugLibraries>False</UseDebugLibraries>
-    <PlatformToolset>WindowsKernelModeDriver8.1</PlatformToolset>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Win7 Release|ARM64'" Label="Configuration">
-    <UseDebugLibraries>False</UseDebugLibraries>
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>WindowsKernelModeDriver10.0</PlatformToolset>
+    <ConfigurationType>Driver</ConfigurationType>
+    <DriverType>WDM</DriverType>
+    <TargetVersion>Windows7</TargetVersion>
   </PropertyGroup>
-  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Win8.1 Debug|x64'">
-    <TargetVersion>WindowsV6.3</TargetVersion>
-    <UseDebugLibraries>True</UseDebugLibraries>
-    <PlatformToolset>WindowsKernelModeDriver8.1</PlatformToolset>
-  </PropertyGroup>
-  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Win8 Debug|x64'">
-    <TargetVersion>Win8</TargetVersion>
-    <UseDebugLibraries>True</UseDebugLibraries>
-    <PlatformToolset>WindowsKernelModeDriver8.1</PlatformToolset>
-  </PropertyGroup>
-  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Win7 Debug|x64'">
-    <TargetVersion>Win7</TargetVersion>
-    <UseDebugLibraries>True</UseDebugLibraries>
-    <PlatformToolset>WindowsKernelModeDriver8.1</PlatformToolset>
-  </PropertyGroup>
-  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Win8.1 Release|x64'">
-    <TargetVersion>WindowsV6.3</TargetVersion>
-    <UseDebugLibraries>False</UseDebugLibraries>
-    <PlatformToolset>WindowsKernelModeDriver8.1</PlatformToolset>
-  </PropertyGroup>
-  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Win8 Release|x64'">
-    <TargetVersion>Win8</TargetVersion>
-    <UseDebugLibraries>False</UseDebugLibraries>
-    <PlatformToolset>WindowsKernelModeDriver8.1</PlatformToolset>
-  </PropertyGroup>
-  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Win7 Release|x64'">
-    <TargetVersion>Win7</TargetVersion>
-    <UseDebugLibraries>False</UseDebugLibraries>
-    <PlatformToolset>WindowsKernelModeDriver8.1</PlatformToolset>
-  </PropertyGroup>
-  <!-- Needed by any VcxProj -->
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
   </ImportGroup>
-  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Win7 Release|x64'">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" />
-    <Import Project="sys.props" />
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <Import Project="..\imdisk.props" />
   </ImportGroup>
-  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Win8 Release|x64'">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" />
-    <Import Project="sys.props" />
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <Import Project="..\imdisk.props" />
   </ImportGroup>
-  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Win8.1 Release|x64'">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" />
-    <Import Project="sys.props" />
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <Import Project="..\imdisk.props" />
   </ImportGroup>
-  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Win7 Debug|x64'">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" />
-    <Import Project="sys.props" />
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'" Label="PropertySheets">
     <Import Project="..\imdisk.props" />
   </ImportGroup>
-  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Win8 Debug|x64'">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" />
-    <Import Project="sys.props" />
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Import Project="..\imdisk.props" />
   </ImportGroup>
-  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Win8.1 Debug|x64'">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" />
-    <Import Project="sys.props" />
-    <Import Project="..\imdisk.props" />
-  </ImportGroup>
-  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Win7 Release|Win32'">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" />
-    <Import Project="sys.props" />
-    <Import Project="..\imdisk.props" />
-  </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Win7 Release|ARM'" Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" />
-    <Import Project="sys.props" />
-    <Import Project="..\imdisk.props" />
-  </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Win7 Release|ARM64'" Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" />
-    <Import Project="sys.props" />
-    <Import Project="..\imdisk.props" />
-  </ImportGroup>
-  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Win8 Release|Win32'">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" />
-    <Import Project="sys.props" />
-    <Import Project="..\imdisk.props" />
-  </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Win8 Release|ARM'" Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" />
-    <Import Project="sys.props" />
-    <Import Project="..\imdisk.props" />
-  </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Win8 Release|ARM64'" Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" />
-    <Import Project="sys.props" />
-    <Import Project="..\imdisk.props" />
-  </ImportGroup>
-  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Win8.1 Release|Win32'">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" />
-    <Import Project="sys.props" />
-    <Import Project="..\imdisk.props" />
-  </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Win8.1 Release|ARM'" Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" />
-    <Import Project="..\imdisk.props" />
-    <Import Project="sys.props" />
-  </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Win8.1 Release|ARM64'" Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" />
-    <Import Project="sys.props" />
-    <Import Project="..\imdisk.props" />
-  </ImportGroup>
-  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Win7 Debug|Win32'">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" />
-    <Import Project="sys.props" />
-    <Import Project="..\imdisk.props" />
-  </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Win7 Debug|ARM'" Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" />
-    <Import Project="sys.props" />
-    <Import Project="..\imdisk.props" />
-  </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Win7 Debug|ARM64'" Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" />
-    <Import Project="sys.props" />
-    <Import Project="..\imdisk.props" />
-  </ImportGroup>
-  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Win8 Debug|Win32'">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" />
-    <Import Project="sys.props" />
-    <Import Project="..\imdisk.props" />
-  </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Win8 Debug|ARM'" Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" />
-    <Import Project="sys.props" />
-    <Import Project="..\imdisk.props" />
-  </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Win8 Debug|ARM64'" Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" />
-    <Import Project="sys.props" />
-    <Import Project="..\imdisk.props" />
-  </ImportGroup>
-  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Win8.1 Debug|Win32'">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" />
-    <Import Project="sys.props" />
-    <Import Project="..\imdisk.props" />
-  </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Win8.1 Debug|ARM'" Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" />
-    <Import Project="sys.props" />
-    <Import Project="..\imdisk.props" />
-  </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Win8.1 Debug|ARM64'" Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" />
-    <Import Project="sys.props" />
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'" Label="PropertySheets">
     <Import Project="..\imdisk.props" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Win7 Release|Win32'">
+  <PropertyGroup />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <DebuggerFlavor>DbgengKernelDebugger</DebuggerFlavor>
+    <IntDir Condition="'$(Platform)'!='Win32'">$(BUILD_ALT_DIR)\$(Platform)\</IntDir>
+    <IntDir Condition="'$(Platform)'=='Win32'">$(Platform)\$(Configuration)\</IntDir>
+    <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
     <TimeStampServer />
+    <TargetName>imdisk</TargetName>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Win8 Release|Win32'">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <DebuggerFlavor>DbgengKernelDebugger</DebuggerFlavor>
+    <IntDir Condition="'$(Platform)'!='Win32'">$(Platform)\$(Configuration)\</IntDir>
+    <IntDir Condition="'$(Platform)'=='Win32'">$(BUILD_ALT_DIR)\x86\</IntDir>
+    <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
     <TimeStampServer />
+    <TargetName>imdisk</TargetName>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Win8.1 Release|Win32'">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">
+    <DebuggerFlavor>DbgengKernelDebugger</DebuggerFlavor>
+    <IntDir Condition="'$(Platform)'!='Win32'">$(Platform)\$(Configuration)\</IntDir>
+    <IntDir Condition="'$(Platform)'=='Win32'">$(BUILD_ALT_DIR)\x86\</IntDir>
+    <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
     <TimeStampServer />
+    <TargetName>imdisk</TargetName>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Win7 Release|x64'">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <DebuggerFlavor>DbgengKernelDebugger</DebuggerFlavor>
+    <IntDir Condition="'$(Platform)'!='Win32'">$(BUILD_ALT_DIR)\$(Platform)\</IntDir>
+    <IntDir Condition="'$(Platform)'=='Win32'">$(Platform)\$(Configuration)\</IntDir>
+    <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
     <TimeStampServer />
+    <TargetName>imdisk</TargetName>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Win8 Release|x64'">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <DebuggerFlavor>DbgengKernelDebugger</DebuggerFlavor>
+    <IntDir Condition="'$(Platform)'!='Win32'">$(Platform)\$(Configuration)\</IntDir>
+    <IntDir Condition="'$(Platform)'=='Win32'">$(BUILD_ALT_DIR)\x86\</IntDir>
+    <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
     <TimeStampServer />
+    <TargetName>imdisk</TargetName>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Win8.1 Release|x64'">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">
+    <DebuggerFlavor>DbgengKernelDebugger</DebuggerFlavor>
+    <IntDir Condition="'$(Platform)'!='Win32'">$(Platform)\$(Configuration)\</IntDir>
+    <IntDir Condition="'$(Platform)'=='Win32'">$(BUILD_ALT_DIR)\x86\</IntDir>
+    <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
     <TimeStampServer />
+    <TargetName>imdisk</TargetName>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Win7 Release|ARM'">
-    <TimeStampServer />
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Win7 Release|ARM64'">
-    <TimeStampServer />
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Win8 Release|ARM'">
-    <TimeStampServer />
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Win8 Release|ARM64'">
-    <TimeStampServer />
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Win8.1 Release|ARM'">
-    <TimeStampServer />
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Win8.1 Release|ARM64'">
-    <TimeStampServer />
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Win8 Debug|Win32'">
-    <TimeStampServer />
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Win7 Debug|Win32'">
-    <TimeStampServer />
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Win8.1 Debug|Win32'">
-    <TimeStampServer />
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Win8 Debug|x64'">
-    <TimeStampServer />
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Win7 Debug|x64'">
-    <TimeStampServer />
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Win8.1 Debug|x64'">
-    <TimeStampServer />
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Win8 Debug|ARM'">
-    <TimeStampServer />
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Win8 Debug|ARM64'">
-    <TimeStampServer />
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Win7 Debug|ARM'">
-    <TimeStampServer />
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Win7 Debug|ARM64'">
-    <TimeStampServer />
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Win8.1 Debug|ARM'">
-    <TimeStampServer />
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Win8.1 Debug|ARM64'">
-    <TimeStampServer />
-  </PropertyGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Win8 Debug|ARM'">
-    <DriverSign />
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <DriverSign>
+      <FileDigestAlgorithm>sha256</FileDigestAlgorithm>
+    </DriverSign>
   </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Win8 Debug|ARM64'">
-    <DriverSign />
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <DriverSign>
+      <FileDigestAlgorithm>sha256</FileDigestAlgorithm>
+    </DriverSign>
   </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Win7 Debug|ARM'">
-    <DriverSign />
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <DriverSign>
+      <FileDigestAlgorithm>sha256</FileDigestAlgorithm>
+    </DriverSign>
   </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Win7 Debug|ARM64'">
-    <DriverSign />
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <DriverSign>
+      <FileDigestAlgorithm>sha256</FileDigestAlgorithm>
+    </DriverSign>
   </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Win7 Release|ARM'">
-    <DriverSign />
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Win7 Release|ARM64'">
-    <DriverSign />
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Win8.1 Debug|ARM'">
-    <DriverSign />
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Win8.1 Debug|ARM64'">
-    <DriverSign />
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Win8 Release|ARM'">
-    <DriverSign />
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Win8 Release|ARM64'">
-    <DriverSign />
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Win8.1 Release|ARM'">
-    <DriverSign />
-    <ClCompile />
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Win8.1 Release|ARM64'">
-    <DriverSign />
-  </ItemDefinitionGroup>
-  <!-- The WrappedTaskItems label is used by the conversion tool to identify the location where items 
-        associated with wrapped tasks will reside.-->
-  <ItemGroup Label="WrappedTaskItems" />
   <ItemGroup>
-    <!-- We only add items (e.g. form ClSourceFiles) that do not already exist (e.g in the ClCompile list), this avoids duplication -->
-    <ClCompile Include="commonio.cpp" />
-    <ClCompile Include="createdev.cpp" />
-    <ClCompile Include="devthrd.cpp" />
-    <ClCompile Include="floppy.cpp" />
-    <ClCompile Include="imdisk.cpp" Exclude="@(ClCompile)" />
-    <ClCompile Include="iodisp.cpp" />
-    <ClCompile Include="lowerdev.cpp" />
-    <ClCompile Include="proxy.cpp" />
-    <ClCompile Include="wkmem.cpp" />
-    <ResourceCompile Include="@(RcSourceFiles)" Exclude="@(ResourceCompile)" />
-    <Midl Include="@(IdlSourceFiles)" Exclude="@(Midl)" />
-    <MessageCompile Include="@(McSourceFiles)" Exclude="@(MessageCompile)" />
-    <MASM Include="@(AsmSourceFiles)" Exclude="@(MASM)" />
-    <GenerateBmf Include="@(MofSourceFiles)" Exclude="@(GenerateBmf)" />
-  </ItemGroup>
-  <!-- Set default environment variables, e.g. for stampinf -->
-  <ItemGroup>
-    <BuildMacro Include="SDK_INC_PATH">
-      <Value>$(KIT_SHARED_INC_PATH)</Value>
-      <EnvironmentVariable>true</EnvironmentVariable>
-    </BuildMacro>
-  </ItemGroup>
-  <ItemGroup>
-    <Inf Exclude="@(Inf)" Include="$(DDK_INF_FILES)" />
-    <FilesToPackage Include="$(TargetPath)" Condition="'$(ConfigurationType)'=='Driver' or '$(ConfigurationType)'=='DynamicLibrary'" />
-    <FilesToPackage Include="$(DDK_PACKAGE_FILES)" />
-  </ItemGroup>
-  <!-- Necessary to pick up propper files from local directory when in the IDE-->
-  <ItemGroup>
-    <None Exclude="@(None)" Include="*.txt;*.htm;*.html" />
-    <None Exclude="@(None)" Include="*.ico;*.cur;*.bmp;*.dlg;*.rct;*.gif;*.jpg;*.jpeg;*.wav;*.jpe;*.tiff;*.tif;*.png;*.rc2" />
-    <None Exclude="@(None)" Include="*.def;*.bat;*.hpj;*.asmx" />
+    <FilesToPackage Include="$(TargetPath)" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\inc\imdisk.h" />
@@ -514,6 +185,21 @@
     <ClInclude Include="..\inc\wkmem.hpp" />
     <ClInclude Include="imdsksys.h" />
   </ItemGroup>
-  <!-- /Necessary to pick up propper files from local directory when in the IDE-->
+  <ItemGroup>
+    <ClCompile Include="commonio.cpp" />
+    <ClCompile Include="createdev.cpp" />
+    <ClCompile Include="devthrd.cpp" />
+    <ClCompile Include="floppy.cpp" />
+    <ClCompile Include="imdisk.cpp" />
+    <ClCompile Include="iodisp.cpp" />
+    <ClCompile Include="lowerdev.cpp" />
+    <ClCompile Include="proxy.cpp" />
+    <ClCompile Include="wkmem.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="imdisk.rc" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
 </Project>
