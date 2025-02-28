@@ -3,10 +3,10 @@ name: CI
 on:
   workflow_dispatch:
   
-  #push:
-  #  branches: [ master ]
-  #pull_request:
-  #  branches: [ master ]
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
 
 jobs:
   build:
@@ -33,7 +33,7 @@ jobs:
           name: ImDisk_x64
           path: |
             x64/Release/*.exe
-            x64/Release/*.clp
+            x64/Release/*.cpl
             x64/Release/*.dll
             x64/Release/*.sys
             x64/Release/*.pdb
@@ -44,7 +44,7 @@ jobs:
           name: ImDisk_ARM64
           path: |
             ARM64/Release/*.exe
-            ARM64/Release/*.clp
+            ARM64/Release/*.cpl
             ARM64/Release/*.dll
             ARM64/Release/*.sys
             ARM64/Release/*.pdb
