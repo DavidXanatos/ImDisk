@@ -1,8 +1,11 @@
 # ImDisk Virtual Disk Driver 3.0 for Windows 7/10/11
 
-This project is a fork from the last [ImDisk](https://github.com/LTRData/ImDisk) by Olof Lagerkvist,
-It ads functionality required on more modern windows versions Windows 11.
-The goal of this project is to maintain the lightweight functionality while
+This project is a fork of the last [ImDisk](https://github.com/LTRData/ImDisk) release by Olof Lagerkvist, 
+adding functionality required for compatibility with modern Windows versions, 
+including Windows 11 24H2. The goal is to maintain the lightweight nature of ImDisk 
+while ensuring full compatibility with the latest Windows releases. 
+Please note that 32-bit Windows (x86 and arm) is no longer supported, 
+and this project focuses exclusively on 64-bit systems (x64 and ARM64).
 
 ImDisk Virtual Disk driver emulates harddisk partitions and CD/DVD-ROM drives
 from disk image files, in virtual memory or by redirecting I/O requests
@@ -16,7 +19,7 @@ Programs applet in the Control Panel.
 You can get syntax help to the command line tool by typing just imdisk
 without parameters.
 
-To install/uninstall on ARM or ARM64 architectures a manual setup is needed.
+To install/uninstall on ARM64 architectures a manual setup is needed.
 More about that and other frequently asked questions in the wiki:
 https://github.com/LTRData/ImDisk/wiki
 

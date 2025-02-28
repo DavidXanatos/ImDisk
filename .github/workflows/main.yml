@@ -1,0 +1,50 @@
+name: CI
+
+on:
+  workflow_dispatch:
+  
+  #push:
+  #  branches: [ master ]
+  #pull_request:
+  #  branches: [ master ]
+
+jobs:
+  build:
+
+    #runs-on: windows-2022
+    runs-on: windows-2019
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4.1.7
+
+      - name: Setup msbuild
+        uses: microsoft/setup-msbuild@v2
+        
+      - name: Build ImDisk x64 Isolator
+        run: msbuild /t:build ImDisk.sln /p:Configuration="Release" /p:Platform=x64
+        
+      - name: Build ImDisk ARM64 Isolator
+        run: msbuild /t:build ImDisk.sln /p:Configuration="Release" /p:Platform=ARM64
+
+      - name: Upload x64 Build 
+        uses: actions/upload-artifact@v4.4.3
+        with:
+          name: ImDisk_x64
+          path: |
+            x64/Release/*.exe
+            x64/Release/*.clp
+            x64/Release/*.dll
+            x64/Release/*.sys
+            x64/Release/*.pdb
+            
+      - name: Upload ARM64 Build
+        uses: actions/upload-artifact@v4.4.3
+        with:
+          name: ImDisk_ARM64
+          path: |
+            ARM64/Release/*.exe
+            ARM64/Release/*.clp
+            ARM64/Release/*.dll
+            ARM64/Release/*.sys
+            ARM64/Release/*.pdb
