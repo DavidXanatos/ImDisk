@@ -35,9 +35,19 @@ jobs:
         with:
           name: ImDisk
           path: |
-            Release/*/*.exe
-            Release/*/*.cpl
-            Release/*/*.dll
-            Release/*/*.sys
-            Release/*/*.pdb
+            Release/amd64/*.exe
+            Release/amd64/*.cpl
+            Release/amd64/*.dll
+            Release/amd64/*.sys
+            Release/amd64/*.pdb
+            Release/ARM64/*.exe
+            Release/ARM64/*.cpl
+            Release/ARM64/*.dll
+            Release/ARM64/*.sys
+            Release/ARM64/*.pdb
+            Release/i386/*.exe
+            Release/i386/*.cpl
+            Release/i386/*.dll
+            Release/i386/*.sys
+            Release/i386/*.pdb
             
