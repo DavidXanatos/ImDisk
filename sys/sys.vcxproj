@@ -110,7 +110,7 @@
     <DebuggerFlavor>DbgengKernelDebugger</DebuggerFlavor>
     <IntDir Condition="'$(Platform)'!='Win32'">$(BUILD_ALT_DIR)\$(Platform)\</IntDir>
     <IntDir Condition="'$(Platform)'=='Win32'">$(Platform)\$(Configuration)\</IntDir>
-    <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
+    <OutDir>$(SolutionDir)\$(Configuration)\$(ProjectName)\i386\</OutDir>
     <TimeStampServer />
     <TargetName>imdisk</TargetName>
   </PropertyGroup>
@@ -118,7 +118,7 @@
     <DebuggerFlavor>DbgengKernelDebugger</DebuggerFlavor>
     <IntDir Condition="'$(Platform)'!='Win32'">$(Platform)\$(Configuration)\</IntDir>
     <IntDir Condition="'$(Platform)'=='Win32'">$(BUILD_ALT_DIR)\x86\</IntDir>
-    <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
+    <OutDir>$(SolutionDir)\$(Configuration)\$(ProjectName)\amd64\</OutDir>
     <TimeStampServer />
     <TargetName>imdisk</TargetName>
   </PropertyGroup>
@@ -126,7 +126,7 @@
     <DebuggerFlavor>DbgengKernelDebugger</DebuggerFlavor>
     <IntDir Condition="'$(Platform)'!='Win32'">$(Platform)\$(Configuration)\</IntDir>
     <IntDir Condition="'$(Platform)'=='Win32'">$(BUILD_ALT_DIR)\x86\</IntDir>
-    <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
+    <OutDir>$(SolutionDir)\$(Configuration)\$(ProjectName)\ARM64\</OutDir>
     <TimeStampServer />
     <TargetName>imdisk</TargetName>
   </PropertyGroup>
@@ -134,7 +134,7 @@
     <DebuggerFlavor>DbgengKernelDebugger</DebuggerFlavor>
     <IntDir Condition="'$(Platform)'!='Win32'">$(BUILD_ALT_DIR)\$(Platform)\</IntDir>
     <IntDir Condition="'$(Platform)'=='Win32'">$(Platform)\$(Configuration)\</IntDir>
-    <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
+    <OutDir>$(SolutionDir)\$(Configuration)\$(ProjectName)\i386\</OutDir>
     <TimeStampServer />
     <TargetName>imdisk</TargetName>
   </PropertyGroup>
@@ -142,7 +142,7 @@
     <DebuggerFlavor>DbgengKernelDebugger</DebuggerFlavor>
     <IntDir Condition="'$(Platform)'!='Win32'">$(Platform)\$(Configuration)\</IntDir>
     <IntDir Condition="'$(Platform)'=='Win32'">$(BUILD_ALT_DIR)\x86\</IntDir>
-    <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
+    <OutDir>$(SolutionDir)\$(Configuration)\$(ProjectName)\amd64\</OutDir>
     <TimeStampServer />
     <TargetName>imdisk</TargetName>
   </PropertyGroup>
@@ -150,7 +150,7 @@
     <DebuggerFlavor>DbgengKernelDebugger</DebuggerFlavor>
     <IntDir Condition="'$(Platform)'!='Win32'">$(Platform)\$(Configuration)\</IntDir>
     <IntDir Condition="'$(Platform)'=='Win32'">$(BUILD_ALT_DIR)\x86\</IntDir>
-    <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
+    <OutDir>$(SolutionDir)\$(Configuration)\$(ProjectName)\ARM64\</OutDir>
     <TimeStampServer />
     <TargetName>imdisk</TargetName>
   </PropertyGroup>

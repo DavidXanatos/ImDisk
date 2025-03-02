@@ -27,24 +27,17 @@ jobs:
       - name: Build ImDisk ARM64 Isolator
         run: msbuild /t:build ImDisk.sln /p:Configuration="Release" /p:Platform=ARM64
 
-      - name: Upload x64 Build 
+      - name: Build ImDisk i386 Isolator
+        run: msbuild /t:build ImDisk.sln /p:Configuration="Release" /p:Platform=win32
+
+      - name: Upload Build 
         uses: actions/upload-artifact@v4.4.3
         with:
-          name: ImDisk_x64
+          name: ImDisk
           path: |
-            x64/Release/*.exe
-            x64/Release/*.cpl
-            x64/Release/*.dll
-            x64/Release/*.sys
-            x64/Release/*.pdb
+            Release/*/*.exe
+            Release/*/*.cpl
+            Release/*/*.dll
+            Release/*/*.sys
+            Release/*/*.pdb
             
-      - name: Upload ARM64 Build
-        uses: actions/upload-artifact@v4.4.3
-        with:
-          name: ImDisk_ARM64
-          path: |
-            ARM64/Release/*.exe
-            ARM64/Release/*.cpl
-            ARM64/Release/*.dll
-            ARM64/Release/*.sys
-            ARM64/Release/*.pdb
