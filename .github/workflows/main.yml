@@ -21,13 +21,13 @@ jobs:
       - name: Setup msbuild
         uses: microsoft/setup-msbuild@v2
         
-      - name: Build ImDisk x64 Isolator
+      - name: Build ImDisk x64
         run: msbuild /t:build ImDisk.sln /p:Configuration="Release" /p:Platform=x64
         
-      - name: Build ImDisk ARM64 Isolator
+      - name: Build ImDisk ARM64
         run: msbuild /t:build ImDisk.sln /p:Configuration="Release" /p:Platform=ARM64
 
-      - name: Build ImDisk i386 Isolator
+      - name: Build ImDisk i386
         run: msbuild /t:build ImDisk.sln /p:Configuration="Release" /p:Platform=win32
 
       - name: Upload Build 
