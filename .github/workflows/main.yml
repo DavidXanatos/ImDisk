@@ -27,8 +27,8 @@ jobs:
       - name: Build ImDisk ARM64
         run: msbuild /t:build ImDisk.sln /p:Configuration="Release" /p:Platform=ARM64
 
-      - name: Build ImDisk i386
-        run: msbuild /t:build ImDisk.sln /p:Configuration="Release" /p:Platform=win32
+      #- name: Build ImDisk i386
+      #  run: msbuild /t:build ImDisk.sln /p:Configuration="Release" /p:Platform=win32
 
       - name: Upload Build 
         uses: actions/upload-artifact@v4.4.3
