@@ -257,6 +257,11 @@ ImDiskCallProxy(IN PPROXY_CONNECTION Proxy,
 
         ULONG number_of_wait_objects = CancelEvent != NULL ? 2 : 1;
 
+        // Timeout for proxy response
+        // Negative value = relative time in 100ns units
+        LARGE_INTEGER proxy_timeout;
+        proxy_timeout.QuadPart = 100 * -10000000LL; // 100 seconds
+
         // Some parameter sanity checks
         if ((RequestHeaderSize > IMDPROXY_HEADER_SIZE) ||
             (ResponseHeaderSize > IMDPROXY_HEADER_SIZE) ||
@@ -292,10 +297,20 @@ ImDiskCallProxy(IN PPROXY_CONNECTION Proxy,
             Executive,
             KernelMode,
             FALSE,
-            NULL,
+            &proxy_timeout,
             NULL);
 
-        if (status == STATUS_WAIT_1)
+        if (status == STATUS_TIMEOUT)
+        {
+            //KdPrint(("ImDisk Proxy Client: Proxy response timeout.\n"));
+            DbgPrint("ImDisk Proxy Client: Proxy response timeout.\n");
+
+            IoStatusBlock->Status = STATUS_IO_TIMEOUT;
+            IoStatusBlock->Information = 0;
+            return IoStatusBlock->Status;
+        }
+
+        if (status == STATUS_WAIT_1) // CancelEvent
         {
             KdPrint(("ImDisk Proxy Client: Incomplete wait %#x.\n.", status));
 
