@@ -949,6 +949,7 @@ ImDiskDeviceThread(IN PVOID Context)
     PDEVICE_OBJECT device_object;
     PDEVICE_EXTENSION device_extension;
     LARGE_INTEGER time_out = { 0 };
+    LONG count_down = 0;
     BOOLEAN system_drive_letter;
 
     ASSERT(Context != NULL);
@@ -1040,7 +1041,8 @@ ImDiskDeviceThread(IN PVOID Context)
 
     device_extension = (PDEVICE_EXTENSION)device_object->DeviceExtension;
 
-    time_out.QuadPart = -1000000;
+    time_out.QuadPart = -10000000LL; // 1 second in 100 ns units
+    count_down = 30;
 
     // If this is a VM backed disk that should be pre-loaded with an image file
     // we have to load the contents of that file now before entering the service
@@ -1193,8 +1195,11 @@ ImDiskDeviceThread(IN PVOID Context)
 
                 KeDelayExecutionThread(KernelMode, FALSE, &time_out);
 
-                time_out.LowPart <<= 4;
-                continue;
+                //time_out.LowPart <<= 4;
+                if (--count_down == 0)
+                    DbgPrint("ImDisk: IoDeleteDevice with device_object->ReferenceCount != 0\n");
+                else
+                    continue;
             }
 
             KdPrint(("ImDisk: Deleting symlink for device %i.\n",
@@ -1279,6 +1284,7 @@ ImDiskDeviceThread(IN PVOID Context)
         case STATUS_PIPE_DISCONNECTED:
         case STATUS_PORT_DISCONNECTED:
         case STATUS_REMOTE_DISCONNECT:
+            DbgPrint("ImDiskRemoveVirtualDisk, status: 0x%08X\n", Irp->IoStatus.Status);
             ImDiskRemoveVirtualDisk(device_object);
             Irp->IoStatus.Status = STATUS_DEVICE_DOES_NOT_EXIST;
             Irp->IoStatus.Information = 0;
