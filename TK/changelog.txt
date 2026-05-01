@@ -1,0 +1,449 @@
+Version 20250206
+- fix in General Settings panel: a bug could occur with the save of parameters
+- fix in General Settings panel: a message was not properly displayed
+- executables are now compiled with MinGW 14.2.1 (instead of 13.2.1)
+
+Version 20241123
+- added turkish language
+
+Version 20240210
+- added traditional chinese language (Hong Kong region)
+- updated DiscUtils to .NET 4.8
+- minimal recommended requirement is now Windows 7
+
+Version 20240113
+- fix in RamDiskUI: in the synchronization tool, file removal did not work when the data source was an image file (regression from 20211103)
+- fix in RamDiskUI: if an image file was used with memory allocated dynamically, "Run after mounting" did not work at system startup
+
+Version 20231231
+- RamDiskUI.exe: an executable or a script can now be specified to be run after volume creation
+- uninstaller: added an option to reset the TEMP variables
+- fix in ImDiskTk-svc.exe: data synchronization did not update directory reparse points
+- install.bat: check of the TEMP folder
+- executables are now compiled with MinGW 13.2.1 (instead of 12.2.1)
+
+Version 20220826
+- added korean language
+- installer: added command line switches to force installation settings
+- installer: syntax help no longer requires administrative privileges
+- executables are now compiled with MinGW 12.2.1 (instead of 11.2.1)
+
+Version 20220807
+- added hungarian language
+- added an icon in context menus (Windows 7 and later)
+- executables are now compiled with MinGW 11.2.1 (instead of 10.2.1)
+
+Version 20220301
+- updated to driver 2.1.1 (2.0.9 kept on x64 systems without SHA256 signature support)
+- installer: removed the option to disable automatic loading of ImDskSvc
+- installer: startup type of ImDskSvc, DevIoDrv and AWEAlloc is now set to manual
+
+Version 20211103
+- RamDiskUI.exe: new dialog box for TEMP variables that allows creating junctions (fix for some MSI installers)
+- installer: added an option to create shortcuts for all users instead of current user
+- fix for ramdisks: data synchronization could delete files if an error prevented them from being copied at ramdisk creation
+- fix in MountImg.exe: drive letter specified in command line did not work in lowercase
+- RamDiskUI.exe and MountImg.exe: added a warning in case of lang.txt missing
+
+Version 20210125
+- added finnish language
+
+Version 20201120
+- updated russian language
+- fix in the uninstaller: some files were not removed (regression from 20200402)
+- executables are now compiled with MinGW 10.2.1 (instead of 7.3.0)
+
+Version 20200727
+- added brazilian portuguese language
+- config.exe: added an option to avoid Explorer window appearing after volume mounting
+- RamDiskUI.exe: tooltips now always appear
+
+Version 20200609
+- added italian language
+- installer parameters can now be passed to install.bat
+- ImDisk-Dlg.exe: changed notifications while unmounting; this should fix an incompatibility with FreeCommander
+- ImDisk-Dlg.exe: while unmounting, dialog boxes are now put above all others
+
+Version 20200412
+- new packages without self-extracting modules
+- config.exe: added a command line option to retrieve the version of the package
+
+Version 20200404
+- SFX module: removed UPX compression and compiled it as console application because of antiviruses
+
+Version 20200402
+- updated DiscUtils: fix for VMDK metadata files larger than 20KB and fix for corrupted GPT images
+- fix in MountImg.exe: VMDK metadata files could be changed even in read-only
+- fix in MountImg.exe: partition display or mounting could fail if DiscUtilsDevio takes too much time to close the image file
+- fix in MountImg.exe: the OK button could stay disabled with the drag and drop of an invalid file
+
+Version 20200315
+- MountImg.exe: added command line parameters
+
+Version 20191126
+- the shortcut for the driver control panel now asks for administrative privileges
+- removed "Request administrator rights in Explorer" from the installer; they are now always required
+- RamDyn.exe: performances improved with NT API
+- RamDyn.exe: no longer waits for WM_ENDSESSION when executed in session 0
+
+Version 20190924
+- RamDiskUI.exe: renamed Cancel button to Exit
+- fix in MountImg.exe: formatting could fail if the image file was a new created one (regression from 20180917)
+- fix in MountImg.exe: when a non-existent file was selected with the "..." button, the "OK" button was not enabled
+
+Version 20190629
+- fix in RamDiskUI.exe: an error occurred if RamDyn took more than 15 seconds to load an image file (regression from 20160726)
+- fix in ImDisk-Dlg.exe: when unmounting a ramdisk, the prompt to save it as an image file is now displayed even for dynamic ramdisks
+
+Version 20190419
+- fix in RamDiskUI.exe: copied files might have their archive attribute removed even if the synchronization feature is not used (regression introduced in 20190407)
+- fix in RamDyn.exe: the cleanup function can work not properly (regression introduced in 20190407)
+
+Version 20190407
+- added simplified chinese language
+- fix in RamDyn.exe: a race condition could lead to a mounting fail and/or the fail of the manual trigger of the cleanup function (regression introduced in 20190130)
+- executables are now compiled with MinGW 7.3.0 (instead of 6.2.0)
+
+Version 20190130
+- RamDyn.exe: added a command to manually trigger the cleanup function
+
+Version 20181221
+- updated to driver 2.0.10
+- RamDiskUI.exe: added an information in a tooltip about the incompatibility between NTFS compression and dynamic ramdisks
+- fix in the uninstaller: some shortcuts were not removed (regression introduced in 20161230)
+
+Version 20180917
+- installer: added an option to disable automatic loading of the ImDskSvc service which is installed by the driver
+- installer: added a command line switch to set the installation folder
+- RamDiskUI.exe: added informations in a tooltip about the image file that can be used to load data
+- raised minimal volume size to 65 KB in RamDiskUI and MountImg because of a new size check appeared in driver 2.0.8
+- fix in RamDiskUI.exe: synchronization parameters were not properly registered when a ramdisk on a drive letter was defined just after one on a mount point
+- fix in ImDiskTk-svc.exe: the service could crash with several ramdisks to be synchronized
+- fix in MountImg.exe: when a file was selected with the "..." button, the "OK" button was not enabled
+
+Version 20170706
+- RamDiskUI.exe: added a tooltip about the creation of other folders than Temp
+- fix in RamDiskUI.exe: ImDiskTk-svc service was not created if the system is shut down without closing the GUI (regression introduced in 20160726)
+
+Version 20170407
+- fix: missing error handling for process creation could lead to unpredictable results
+
+Version 20161231
+- fix in RamDyn.exe: a bug occured with volumes larger than 4 GB (regression introduced in 20161230)
+
+Version 20161230
+- RamDyn.exe: fixed a mistake in the syntax help (since 20161120)
+- added a shortcut to the homepage in the start menu
+- SFX modules: added version number
+
+Version 20161204
+- service start type is no longer enforced if the service already exists
+
+Version 20161120
+- RamDyn.exe: improved cleanup function (Security Margin parameter removed)
+
+Version 20161105
+- RamDiskUI.exe: ramdisks are now created at startup even if the source to load content does not exist
+- installer: switched back to the original method of shortcut creation
+- executables are now compiled with MinGW 6.2.0 (instead of 5.3.0)
+
+Version 20161025
+- RamDiskUI.exe: changed the tests and message for the warning about the Windows fast startup feature
+- SFX modules: if the %TEMP% folder is invalid, the current folder is now used to extract the files
+
+Version 20161021
+- ImDiskTk-svc.exe: UNC paths can now be used for ramdisk synchronization at shutdown (remote machines may still be unreachable though)
+- fix in the installer/uninstaller: parameters used by the driver to mount files at startup were not saved if the user wanted to keep them
+
+Version 20161017
+- MountImg.exe: added an option to mount the image file at system startup
+- ImDisk-Dlg.exe: added support for mount points
+- fix in MountImg.exe x64: on Windows 8 and later, the drag and drop could fail if the file is dragged from a 32-bit application
+- fix in RamDiskUI.exe: Temp folder was not created for ramdisks that have just been created on mount point
+- fix in RamDiskUI.exe: the workaround for non visible drive letters in Explorer fails since 20160726 and never worked for other drive letters than R:
+- various minor fixes
+
+Version 20161005
+- fix in RamDiskUI.exe: synchronization options were not properly registered (regression introduced in 20160202)
+
+Version 20160917
+- added support of NTFS compression
+- fix: data synchronization at system shutdown could not working if another ramdisk was defined
+
+Version 20160908
+- new full 64-bit version
+- new 7-Zip SFX modules for the installation packages with improved security
+- removed support for Itanium CPUs
+- installer: added a choice in case of installation in another directory
+- installer: changed method of shortcut creation
+- installer: renamed setup.exe to config.exe in order to avoid the Installer Detection of Windows
+
+Version 20160729
+- MountImg.exe: a right-click on "Switch to Driver Interface" now displays the main interface of imdisk.cpl
+- updated spanish translation
+
+Version 20160726
+- dynamic ramdisks: TRIM commands can now replace the cleanup function for releasing the unused memory blocks
+- fix: data synchronization at system shutdown was not working for dynamic ramdisks that just have been created
+- executables now explicitly support DEP and ASLR
+
+Version 20160202
+- updated to driver 2.0.9
+- added russian language
+- RamDiskUI.exe: added a warning message for issues related to the fast startup feature of Windows
+- RamDiskUI.exe: improved tooltips
+- fix in General Settings panel: "Restore hidden dialog boxes" button was not working
+- fix in ImDisk-Dlg.exe: two buttons were not translated
+- executables are now compiled with MinGW 5.3.0 (instead of 4.7.4)
+
+Version 20151213
+- updated to driver 2.0.8
+- uninstaller: added silent uninstallation
+- fix in the uninstaller: some files were not removed
+
+Version 20151122
+- updated to driver 2.0.7
+- added german language
+- fix in the installer: language was incorrectly preselected on spanish systems
+
+Version 20150818
+- updated to driver 2.0.6
+
+Version 20150809
+- updated to driver 2.0.5
+
+Version 20150805
+- updated to driver 2.0.4
+
+Version 20150804
+- updated to driver 2.0.3
+
+Version 20150802
+- updated to driver 2.0.2
+
+Version 20150729
+- MountImg.exe: new mount logic which should fix an issue where partition 1 of some file formats could be not found
+
+Version 20150620
+- added swedish language
+- MountImg.exe: added preview of partitions of the selected image file
+
+Version 20150608
+- added ramdisk backup at system shutdown
+- RamDiskUI.exe: drive letter used to format mount points is now selected automatically
+- MountImg.exe: floppy device type is now preselected for all .vfd files
+- removed 24x24 icon size
+
+Version 20150429
+- dynamic ramdisks: image files can now be used to load the content
+- RamDyn.exe: does no longer require a subsequent call to imdisk.exe (syntax change)
+
+Version 20150420
+- fix in RamDyn.exe: a crash could occur if the AVX instructions are supported by the CPU but not by the operating system
+
+Version 20150418
+- updated to driver 1.9.4
+- new dialog boxes for drive letter context menu
+
+Version 20150324
+- added spanish language
+- dynamic ramdisks: write speed improvement in some cases when SSE2 or AVX instructions are available
+
+Version 20150316
+- fix in RamDyn.exe: cleanup function did not work properly with dynamic ramdisk larger than 2 GB (regression introduced in 20150313)
+- fix in RamDyn.exe: error message in case of insufficient memory was not displayed for ramdisks mounted at Windows startup
+
+Version 20150313
+- dynamic ramdisks: size of allocated memory blocks can now be changed
+- installer: added a command line parameter to bypass automatic language detection
+- fix in RamDiskUI.exe: in some cases, dynamic ramdisks created at Windows startup did not use the correct type of memory between virtual and physical
+
+Version 20150304
+- added partial multiple-language support (with french translation)
+- RamDiskUI.exe: access rights of the Temp folder are now explicitly granted to everyone instead of being inherited
+- fix: in some cases, a dialog box was displayed at the end of a silent installation (regression introduced in 20140901)
+
+Version 20141217
+- updated to driver 1.9.2
+
+Version 20141206
+- dynamic ramdisks can now allocate memory through AWE
+- dynamic ramdisks: minor write speed improvement for new allocated memory blocks
+- 32-bit version of RamDyn.exe is now linked with --large-address-aware
+- RamDyn.exe: if a command line argument is missing, a syntax help is now displayed
+- RamDiskUI.exe: removed "Save as Image File" button (can still be done with a right-click on a drive letter in Explorer)
+- minor fixes and improvements
+
+Version 20141026
+- fix: on a new installation, the context menu entry of files was not using MountImg.exe even if installed (regression introduced in 20140920)
+
+Version 20141004
+- fix in RamDiskUI.exe: the "Use Awealloc" checkbox was greyed if an image file was selected
+- installer: changed file copy method in order to fix an ACL issue on systems with multiple user accounts (only works on new installation)
+
+Version 20140920
+- updated to driver 1.8.5
+- MountImg.exe: if a raw file cannot be mounted by the driver (e.g. partitioned with GPT), it is now mounted through DiscUtils
+- DiscUtils library updated in order to fix an issue with the partition sizes in GPT partitioned image files
+- removed dependency to the Path environment variable and some executables, this might fix some installation issues
+- uninstaller now displays progress status
+- minor fixes and improvements
+
+Version 20140913
+- fix in MountImg.exe: .nrg files and first partition of multi-partitioned raw image files could not be mounted (regression introduced in 20140221)
+- fix in MountImg.exe: some image files could not be mounted with partition number set to 0
+- minor fixes and improvements
+
+Version 20140902
+- fix: context menus of Explorer was not working properly (regression introduced in 20140901)
+
+Version 20140901
+- changed last fix for non visible drive letters in Explorer by a process started separately
+- fix in RamDiskUI.exe: in some cases, if a mount point folder is also used, the last registered drive letter could not be unregistered
+- RamDiskUI.exe: added a New Folder button in the dialog box used to select a mount point folder
+- fixed several issues with context menus of Explorer
+- added a dialog box to say that the installation is finished
+- minor fixes and improvements
+
+Version 20140818
+- fix in RamDiskUI.exe: in some cases, ramdisks mounted at startup on Vista/7 were not visible in Explorer
+- fixed installation issues on XP x64 (regression introduced in 20140307)
+- fix: the uninstall did not remove empty installation directory
+
+Version 20140721
+- canceled previous change about dynamic ramdisks because of low performances on some machines
+- added display of build number in General Settings panel
+
+Version 20140719
+- dynamic ramdisks: improved synchronization speed with the driver
+
+Version 20140710
+- updated to driver 1.8.4
+
+Version 20140705
+- updated to driver 1.8.3
+
+Version 20140629
+- updated to driver 1.8.2
+
+Version 20140502
+- updated to driver 1.8.0
+- minor fixes and improvements
+
+Version 20140323
+- installer: changed silent installation method: a command line switch is now used instead of environment variable (use any argument to get informations)
+
+Version 20140307
+- installer: updating now asks for a Windows restart if required
+- installer: added silent installation (set IMDISK_SILENT_SETUP environment variable to 1 to keep error messages and reboot prompt, or 2 for complete silent)
+- installer: if previous parameters are found, the ramdisk service is recreated and started (for ramdisks created with Version 20130905 and later)
+- General Settings: added a button to save the parameters (and optionally the TEMP environment variables)
+- dynamic ramdisks: performance improvements
+- minor fixes and improvements
+
+Version 20140221
+- dynamic ramdisk improvement: release of allocated memory does no longer rely only on a timer but can now be tuned by several parameters
+- fix in RamDyn.exe: cleanup of dynamic ramdisk with FAT32 file system bigger than 4GB could take an infinite time
+- RamDyn.exe: reduced process shutdown priority for applications that need to access a dynamic ramdisk at shutdown
+- minor fixes and improvements
+
+Version 20140216
+- fix in RamDiskUI.exe: in some cases, ramdisk was not properly formatted at Windows startup
+
+Version 20140207
+- added the ability to define ramdisks on mount points
+- changed a tooltip in RamDiskUI.exe to tell that image files are not compatible with dynamic ramdisks
+- fix: when a dynamic ramdisk was defined on XP or Vista, system shutdown could be blocked in some cases
+- minor fixes and improvements
+
+Version 20140124
+- dynamic ramdisks: write speed improvement
+- fix: value 0 to disable dynamic ramdisk cleanup was not working
+
+Version 20140119
+- added dynamic memory management for ramdisks
+- fix in RamDiskUI.exe: size limits beyond 10 GB were incorrect
+- cosmetic: slightly reduced font size of RamDiskUI.exe
+
+Version 20131026
+- updated to driver 1.7.6
+- minor fixes and improvements
+
+Version 20130905
+- RamDiskUI.exe: added the ability to mount several ramdisks at startup
+- installer: in case of update, options are now checked according to the previous installation
+- fix in RamDiskUI.exe: service used for startup was removed with the Unmount button even if you chose to keep it with the driver dialog boxes
+- minor fixes and improvements
+
+Version 20130825
+- restored support of IA-64 architecture, because of Symantec antivirus that forbids repackaging
+- changed RamDiskUI.exe compilation switches to avoid several false positives of antivirus
+
+Version 20130824
+- fix in RamDiskUI.exe: errors were found in the system event log when mounting a ramdisk at startup, fixed by implementing RamDiskUI.exe as a true service
+- removed support for IA-64 (Itanium) architecture
+- installer: the folder of the previous installation is now selected instead of the default one
+- installer: hide "ImDisk Virtual Disk Driver" in the uninstall list of the Windows control panel to avoid confusion with the Toolkit
+- minor fixes and improvements
+
+Version 20130704
+- RamDiskUI.exe: it can now load ramdisk content from a folder instead of an image file
+- MountImg.exe: now try several ways to mount an image file in case of error
+- added support of Windows XP Professional x64 Edition
+- installer: changed dialog box if .NET 4 is not installed to avoid incomplete install
+- minor fixes and improvements
+
+Version 20130615
+- updated to driver 1.7.5, which lets to remove experimental notifications added in 20130611
+- MountImg.exe: in case of an invalid file system, dialog boxes are now automatically closed if the drive is formatted or unmounted from Explorer
+- MountImg.exe: if .NET 4 is not installed, it now attempts to mount all files with driver tools instead of DiscUtils
+- fix in MountImg.exe: unmounting from the Invalid File System dialog box could make disappear some drive letters in Explorer by mistake
+- minor fixes and improvements
+
+Version 20130612
+- fixed another drive letter notification issue with Windows 8
+
+Version 20130611
+- improved drive letter notification in Vista and later: should avoid some remaining drive letters in Explorer after the unmount of an ImDisk device
+- MountImg.exe: now automatically select Floppy type and A: or B: when you attempt to mount a floppy image file
+- minor fixes and improvements
+
+Version 20130528
+- updated to driver 1.7.3
+- updated RamDiskUI.exe to follow the new behavior of awealloc
+- minor improvements
+
+Version 20130513
+- updated to driver 1.7.2
+- ImDisk-UAC.exe: no longer uses CRT library to reduce size of executable, this also removes some false positives of antivirus
+
+Version 20130419
+- added in MountImg.exe: a mount point can now be defined instead of a drive letter
+- added in MountImg.exe: if the file does not exist, you will be prompted to create a new raw file
+- fix in MountImg.exe: some .nrg files were not properly mounted
+- fix in MountImg.exe on XP: Explorer was displaying an error message after a volume was successfully mounted
+- minor fixes and improvements
+
+Version 20130406
+- updated to driver 1.7.1
+- RamDiskUI.exe: awealloc can now be used for mounting an image file
+- fix in MountImg.exe: files with .raw extension or without extension was incorrectly mounted because of a wrong file type detection
+- minor fixes and improvements
+
+Version 20130325
+- fix in MountImg.exe: an inappropriate error message was displayed after a volume was correctly mounted (bug introduced in 20130316)
+- improved handling in case of file copy errors during install
+
+Version 20130323
+- Vista and later: improved detection of used drives: some network drives will no longer be erroneously displayed in the list of MountImg.exe and the basic tab of RamDiskUI.exe
+- installer: now unchecks the ImDisk Virtual Disk Driver component if its installation is not needed
+- minor fixes and improvements
+
+Version 20130316
+- the drive lists of MountImg.exe and the advanced tab of RamDiskUI.exe are now updated when mounting/unmounting an ImDisk device from another tool
+- fix in MountImg.exe: an error occurred if there was only A, B and C available drive letters
+- cosmetic changes in the installer
+
+Version 20130309
+- first release
+- added an option to use awealloc in RamDiskUI

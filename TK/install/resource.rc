@@ -1,0 +1,119 @@
+#include <windows.h>
+#include <commctrl.h>
+#include <afxres.h>
+#include "resource.h"
+
+1 RT_MANIFEST "manifest"
+
+1 ICON "..\\VD.ico"
+
+INSTALLBOX DIALOGEX 0, 0, 316, 228
+		   FONT 9, "MS Shell Dlg", 0, 0, 0
+		   STYLE WS_SYSMENU | DS_SHELLFONT | DS_CENTER
+		   CAPTION "ImDisk - Setup"
+BEGIN
+	CONTROL "", ID_STATIC1, WC_STATIC, 0, 0, 0, 316, 41
+	CONTROL 1, ID_STATIC2, WC_STATIC, SS_ICON | SS_REALSIZEIMAGE | SS_CENTERIMAGE, 3, 0, 48, 41
+	LTEXT "Welcome to the installer for ImDisk Toolkit.", ID_TEXT1, 54, 8, 260, 18
+	LTEXT "", ID_STATIC3, 54, 27, 262, 13
+	LTEXT "Installation folder:", ID_TEXT10, 10, 52, 78, 10
+	EDITTEXT ID_EDIT1, 89, 50, 198, 12, ES_AUTOHSCROLL
+	PUSHBUTTON "...", ID_PBUTTON1, 289, 50, 16, 12
+	GROUPBOX " Components ", ID_GROUP1, 116, 72, 188, 45
+	AUTOCHECKBOX "ImDisk Virtual Disk Driver (required)", ID_CHECK1, 121, 82, 182, 10
+	AUTOCHECKBOX "DiscUtils library (uses .NET Framework 4.8)", ID_CHECK2, 121, 93, 182, 10
+	AUTOCHECKBOX "RamDisk Configuration Tool", ID_CHECK3, 121, 104, 182, 10
+	GROUPBOX " Options ", ID_GROUP2, 116, 122, 188, 45
+	AUTOCHECKBOX "Enable entries in context menus", ID_CHECK4, 121, 132, 182, 10
+	AUTOCHECKBOX "Create shortcuts on desktop", ID_CHECK5, 121, 143, 182, 10
+	AUTOCHECKBOX "Shortcuts for all users", ID_CHECK6, 121, 154, 182, 10
+	LTEXT "Language:", ID_TEXT11, 116, 178, 50, 10
+	COMBOBOX ID_COMBO1, 166, 176, 80, 24, CBS_DROPDOWNLIST | WS_TABSTOP
+	GROUPBOX "", IDC_STATIC, 10, 70, 93, 121
+	LTEXT "Please keep your mouse over an item to get details.", ID_TEXT2, 14, 77, 85, 112
+	LTEXT "", ID_TEXT3, 105, 79, 10, 12
+	LTEXT "", ID_TEXT4, 105, 90, 10, 12
+	LTEXT "", ID_TEXT5, 105, 101, 10, 12
+	LTEXT "", ID_TEXT6, 105, 129, 10, 12
+	LTEXT "", ID_TEXT7, 105, 140, 10, 12
+	LTEXT "", ID_TEXT8, 105, 151, 10, 12
+	PUSHBUTTON "Credits", ID_PBUTTON2, 5, 209, 43, 13
+	DEFPUSHBUTTON "Install", IDOK, 221, 209, 43, 13
+	PUSHBUTTON "Cancel", IDCANCEL, 268, 209, 43, 13
+	GROUPBOX "", IDC_STATIC, -2, 198, 320, 40
+END
+
+CREDITSBOX DIALOGEX 0, 0, 220, 200
+		   FONT 9, "MS Shell Dlg", 0, 0, 0
+		   STYLE WS_SYSMENU | DS_SHELLFONT | DS_CENTER
+		   CAPTION "ImDisk - Credits"
+BEGIN
+	EDITTEXT ID_EDIT1, 0, 0, 220, 175, ES_MULTILINE | ES_READONLY | WS_VSCROLL
+	DEFPUSHBUTTON "OK", IDOK, 94, 181, 43, 13
+END
+
+DOTNETBOX DIALOGEX 0, 0, 269, 102
+		  STYLE DS_SHELLFONT | DS_CENTER
+		  FONT 9, "MS Shell Dlg", 0, 0, 0
+		  CAPTION "ImDisk - Setup"
+BEGIN
+	CONTROL "Installation finished.\n\nHowever, .NET Framework 4.8 is not present on your system.\nWithout it, you will not be able to mount some image file formats.\n\n"
+			"Please visit the <a href=""https://dotnet.microsoft.com/download/dotnet-framework/net48"">Microsoft Download Center</a> to download installer.", ID_LINK, WC_LINK, 0, 42, 12, 220, 60
+	DEFPUSHBUTTON "OK", IDOK, 113, 83, 43, 13
+	GROUPBOX "", IDC_STATIC, -5, 72, 280, 40
+END
+
+UNINSTALLBOX DIALOGEX 0, 0, 180, 110
+			 FONT 9, "MS Shell Dlg", 0, 0, 0
+			 STYLE WS_SYSMENU | DS_SHELLFONT | DS_CENTER
+			 CAPTION "ImDisk - Setup"
+BEGIN
+	LTEXT "", ID_TEXT1, 20, 36, 160, 10
+	DEFPUSHBUTTON "Uninstall", IDOK, 86, 91, 43, 13
+	PUSHBUTTON "Cancel", IDCANCEL, 133, 91, 43, 13
+	GROUPBOX "", ID_STATIC1, -5, 80, 190, 40
+	AUTOCHECKBOX "Uninstall driver (no reboot required)", ID_CHECK1, 15, 18, 160, 10
+	AUTOCHECKBOX "Remove settings", ID_CHECK2, 15, 36, 160, 10
+	AUTOCHECKBOX "Reset TEMP variables", ID_CHECK3, 15, 54, 160, 10
+END
+
+SETTINGSBOX DIALOGEX 0, 0, 240, 200
+			FONT 9, "MS Shell Dlg", 0, 0, 0
+			STYLE WS_SYSMENU | DS_SHELLFONT | DS_CENTER
+			CAPTION "ImDisk - Setup"
+BEGIN
+	GROUPBOX " General Settings ", ID_STATIC1, 6, 6, 228, 169
+	CONTROL "", IDC_STATIC, "Static", SS_GRAYFRAME, 10, 129, 220, 1
+	AUTOCHECKBOX "Enable entries in context menus", ID_CHECK1, 25, 25, 207, 10
+	AUTOCHECKBOX "Don't show Explorer after volume mounting", ID_CHECK2, 25, 40, 207, 10
+	PUSHBUTTON "Restore hidden dialog boxes", ID_PBUTTON1, 25, 104, 140, 13
+	PUSHBUTTON "Save Parameters...", ID_PBUTTON2, 25, 140, 110, 13
+	AUTOCHECKBOX "with TEMP Environment Variables", ID_CHECK3, 25, 154, 207, 10
+	DEFPUSHBUTTON "OK", IDOK, 146, 181, 43, 13
+	PUSHBUTTON "Cancel", IDCANCEL, 193, 181, 43, 13
+	LTEXT "", ID_TEXT1, 10, 178, 134, 18
+	GROUPBOX " Hide the following drives in Explorer: ", ID_STATIC2, 15, 63, 211, 28
+	AUTOCHECKBOX "", ID_CHECK_A, 17, 74, 7, 7
+	AUTOCHECKBOX "", ID_CHECK_A + 1, 25, 74, 7, 7
+	CONTROL "A", ID_TEXT2, WC_STATIC, SS_NOPREFIX, 18, 81, 7, 8
+	CONTROL "B", ID_TEXT2 + 1, WC_STATIC, SS_NOPREFIX, 26, 81, 7, 8
+END
+
+
+1 VERSIONINFO
+FILEVERSION 11,1,1,0
+BEGIN
+BLOCK "StringFileInfo"
+	BEGIN
+	BLOCK "040904b0"
+		BEGIN
+			VALUE "FileDescription", "ImDisk Toolkit Configuration"
+			VALUE "ProductName", "imdisk"
+			VALUE "ProductVersion", "11.1.1.0"
+		END
+	END
+BLOCK "VarFileInfo"
+	BEGIN
+		VALUE "Translation", 0x0409, 0x04B0
+	END
+END

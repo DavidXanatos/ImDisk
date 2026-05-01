@@ -1,0 +1,4 @@
+#define FLAG_LOCK 1
+#define FLAG_IMG_MOD 2
+#define FLAG_ACCESS 4
+#define FLAG_FASTSTARTUP 256

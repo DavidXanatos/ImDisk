@@ -1,0 +1,94 @@
+.Set CabinetName1=files.cab
+.Set CompressionType=LZX
+.Set CompressionMemory=21
+.Set InfFileName=NUL
+.Set RptFileName=NUL
+
+files\config.exe
+"files\ImDisk Virtual Disk Driver.lnk"
+files\MountImg.exe
+files\ImDisk-Dlg.exe
+files\ImDiskTk-svc32.exe
+files\ImDiskTk-svc64.exe
+files\RamDiskUI.exe
+files\RamDyn32.exe
+files\RamDyn64.exe
+
+.Set DestinationDir=DiscUtils
+MountImg\DiscUtils\DevioNet.dll
+MountImg\DiscUtils\DiscUtils.Core.dll
+MountImg\DiscUtils\DiscUtils.Dmg.dll
+MountImg\DiscUtils\DiscUtils.Streams.dll
+MountImg\DiscUtils\DiscUtils.Vdi.dll
+MountImg\DiscUtils\DiscUtils.Vhd.dll
+MountImg\DiscUtils\DiscUtils.Vhdx.dll
+MountImg\DiscUtils\DiscUtils.Vmdk.dll
+MountImg\DiscUtils\DiscUtils.Xva.dll
+MountImg\DiscUtils\DiscUtilsDevio.exe
+MountImg\DiscUtils\DiscUtilsDevio.exe.config
+MountImg\DiscUtils\ImDiskNet.dll
+MountImg\DiscUtils\LTRData.Extensions.dll
+MountImg\DiscUtils\lzfse-net.dll
+MountImg\DiscUtils\lzfse.dll
+MountImg\DiscUtils\Microsoft.Bcl.HashCode.dll
+MountImg\DiscUtils\System.Buffers.dll
+MountImg\DiscUtils\System.Memory.dll
+MountImg\DiscUtils\System.Numerics.Vectors.dll
+MountImg\DiscUtils\System.Runtime.CompilerServices.Unsafe.dll
+MountImg\DiscUtils\System.Threading.Tasks.Extensions.dll
+MountImg\DiscUtils\System.ValueTuple.dll
+
+.Set DestinationDir=lang
+install\lang\brazilian-portuguese.txt
+install\lang\english.txt
+install\lang\finnish.txt
+install\lang\french.txt
+install\lang\german.txt
+install\lang\hungarian.txt
+install\lang\italian.txt
+install\lang\korean.txt
+install\lang\russian.txt
+install\lang\schinese.txt
+install\lang\spanish.txt
+install\lang\swedish.txt
+install\lang\tchinese.txt
+install\lang\turkish.txt
+
+.Set DestinationDir=driver
+files\driver\gpl.txt
+files\driver\imdisk.inf
+files\driver\install.cmd
+files\driver\msgboxw.exe
+files\driver\readme.txt
+files\driver\runwaitw.exe
+files\driver\uninstall_imdisk.cmd
+
+.Set DestinationDir=driver\awealloc\amd64
+files\driver\awealloc\amd64\awealloc.sys
+.Set DestinationDir=driver\awealloc\i386
+files\driver\awealloc\i386\awealloc.sys
+
+.Set DestinationDir=driver\cli\amd64
+files\driver\cli\amd64\imdisk.exe
+.Set DestinationDir=driver\cli\i386
+files\driver\cli\i386\imdisk.exe
+
+.Set DestinationDir=driver\cpl\amd64
+files\driver\cpl\amd64\imdisk.cpl
+.Set DestinationDir=driver\cpl\i386
+files\driver\cpl\i386\imdisk.cpl
+
+.Set DestinationDir=driver\deviodrv\amd64
+files\driver\deviodrv\amd64\deviodrv.sys
+.Set DestinationDir=driver\deviodrv\i386
+files\driver\deviodrv\i386\deviodrv.sys
+
+.Set DestinationDir=driver\svc\amd64
+files\driver\svc\amd64\imdsksvc.exe
+.Set DestinationDir=driver\svc\i386
+files\driver\svc\i386\imdsksvc.exe
+
+.Set DestinationDir=driver\sys\amd64
+files\driver\sys\amd64\imdisk.sys
+.Set DestinationDir=driver\sys\i386
+files\driver\sys\i386\imdisk.sys
