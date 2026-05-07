@@ -73,7 +73,7 @@ BOOLEAN DisallowedDriveLetters[L'Z' - L'A' + 1] = { FALSE };
 KSPIN_LOCK DeviceListLock;
 
 //
-// Device list lock
+// ReferencedObjects list lock
 //
 KSPIN_LOCK ReferencedObjectsListLock;
 
@@ -186,7 +186,7 @@ DriverEntry(IN PDRIVER_OBJECT DriverObject,
                 // Ensure upper-case drive letter.
                 *str &= ~0x20;
 
-                if ((*str >= L'A') & (*str <= L'Z'))
+                if ((*str >= L'A') && (*str <= L'Z'))
                     DisallowedDriveLetters[*str - L'A'] = TRUE;
             }
         }
@@ -692,8 +692,8 @@ ImDiskAddVirtualDiskAfterInitialization(IN PDRIVER_OBJECT DriverObject,
         &required_size);
 
     if ((!NT_SUCCESS(status)) ||
-        ((value_info_size->Type != REG_BINARY) &
-            (value_info_size->Type != REG_QWORD)) |
+        ((value_info_size->Type != REG_BINARY) &&
+            (value_info_size->Type != REG_QWORD)) ||
         (value_info_size->DataLength != sizeof(LARGE_INTEGER)))
     {
         KdPrint(("ImDisk: Missing or bad '%ws' for device %i.\n",
@@ -794,7 +794,7 @@ ImDiskAddVirtualDiskAfterInitialization(IN PDRIVER_OBJECT DriverObject,
         &required_size);
 
     if ((!NT_SUCCESS(status)) ||
-        ((value_info_image_offset->Type != REG_BINARY) &
+        ((value_info_image_offset->Type != REG_BINARY) &&
             (value_info_image_offset->Type != REG_QWORD)) ||
         (value_info_image_offset->DataLength != sizeof(LARGE_INTEGER)))
     {
@@ -968,7 +968,7 @@ ImDiskAddVirtualDisk(IN PDRIVER_OBJECT DriverObject,
         // Ensure upper-case drive letter.
         WCHAR ucase_drive_letter = CreateData->DriveLetter & ~0x20;
 
-        if ((ucase_drive_letter >= L'A') & (ucase_drive_letter <= L'Z'))
+        if ((ucase_drive_letter >= L'A') && (ucase_drive_letter <= L'Z'))
             if (DisallowedDriveLetters[ucase_drive_letter - L'A'])
                 return STATUS_ACCESS_DENIED;
     }
