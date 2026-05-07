@@ -772,6 +772,12 @@ ImDiskDispatchDeviceControl(IN PDEVICE_OBJECT DeviceObject,
 
         status = STATUS_OBJECT_NAME_NOT_FOUND;
 
+		// Control device uses device number -1, so it is not possible to remove it using this IOCTL.
+        if (device_number == IMDISK_AUTO_DEVICE_NUMBER)
+        {
+            break;
+        }
+
         ImDiskAcquireLock(&DeviceListLock, &lock_handle);
 
         PDEVICE_OBJECT device_object =
