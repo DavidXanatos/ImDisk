@@ -6,6 +6,7 @@
   <ItemDefinitionGroup>
     <Link>
       <EntryPointSymbol>DriverEntry</EntryPointSymbol>
+      <AdditionalDependencies>%(AdditionalDependencies);bufferoverflowfastfailk.lib</AdditionalDependencies>
     </Link>
     <ClCompile />
     <ClCompile />

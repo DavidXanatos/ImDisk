@@ -410,3 +410,4 @@ changes.txt
 *.filters
 dirs.sln
 ImDiskNet/DevioNet/Server/Services/DevioDrvService.vb
+.github/copilot-instructions.md
