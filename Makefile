@@ -68,18 +68,18 @@ $(DIST_DIR) $(UPLOAD_DIR):
 
 $(DIST_DIR)\imdiskinst.exe: $(DIST_DIR)\imdisk.7z 7zS.sfx 7zSDcfg.txt
 	copy /y /b 7zS.sfx + 7zSDcfg.txt + $(DIST_DIR)\imdisk.7z $(DIST_DIR)\imdiskinst.exe
-	$(SIGNTOOL)" /d "ImDisk Virtual Disk Driver" /du "$(COMPANYURL)" $(CROSSCERT) $(TIMESTAMP_WEBSERVICE) $(DIST_DIR)\imdiskinst.exe
+	$(SIGNTOOL) /d "ImDisk Virtual Disk Driver" /du "$(COMPANYURL)" $(CROSSCERT) $(TIMESTAMP_WEBSERVICE) $(DIST_DIR)\imdiskinst.exe
 	xcopy /d /y $(DIST_DIR)\imdiskinst.exe $(UPLOAD_DIR)
 
-$(DIST_DIR)\imdisk_source.7z: $(DIST_DIR)\imdisk.7z 7zSDcfg.txt $(README_TXT_FILES) runwaitw.exe install.cmd msgboxw.exe inc\imdiskver.h devio\*.c devio\*.cpp devio\*.h devio\Makefile* uninstall_imdisk.cmd 7zS.sfx *.sln *.props ImDiskNet\*.sln ImDiskNet\ImDiskNet\*.vb ImDiskNet\ImDiskNet\*.*proj ImDiskNet\DiscUtilsDevio\*.vb ImDiskNet\DiscUtilsDevio\*.*proj ImDiskNet\DevioNet\*.vb ImDiskNet\DevioNet\*.*proj Makefile devio\Makefile*
+$(DIST_DIR)\imdisk_source.7z: $(DIST_DIR)\imdisk.7z 7zSDcfg.txt $(README_TXT_FILES) runwaitw.exe install.cmd msgboxw.exe inc\imdiskver.h devio\*.c devio\*.cpp devio\*.h devio\Makefile* uninstall_imdisk.cmd 7zS.sfx *.sln *.props ImDiskNet\*.slnx ImDiskNet\ImDiskNet\*.vb ImDiskNet\ImDiskNet\*.*proj ImDiskNet\DiscUtilsDevio\*.vb ImDiskNet\DiscUtilsDevio\*.*proj ImDiskNet\DevioNet\*.vb ImDiskNet\DevioNet\*.*proj Makefile devio\Makefile*
 	del $(DIST_DIR)\imdisk_source.7z
-	7z a -r $(DIST_DIR)\imdisk_source.7z -x!*~ -m0=PPMd 7zSDcfg.txt 7zS.sfx $(README_TXT_FILES) *.def *.src *.ico *.c *.h *.cpp *.hpp *.cxx *.hxx *.rc *.lib *.sln *.vb *.cs *.*proj *.snk *.resx *.resources *.myapp *.settings *.props Sources dirs imdisk.inf runwaitw.exe install.cmd msgboxw.exe uninstall_imdisk.cmd Makefile
+	7z a -r $(DIST_DIR)\imdisk_source.7z -x!*~ -m0=PPMd 7zSDcfg.txt 7zS.sfx $(README_TXT_FILES) *.def *.src *.ico *.c *.h *.cpp *.hpp *.cxx *.hxx *.rc *.lib *.sln *.slnx *.vb *.cs *.*proj *.snk *.resx *.resources *.myapp *.settings *.props Sources dirs imdisk.inf runwaitw.exe install.cmd msgboxw.exe uninstall_imdisk.cmd Makefile
 	xcopy /d /y $(DIST_DIR)\imdisk_source.7z $(UPLOAD_DIR)
 
 $(DIST_DIR)\imdisk.7z: $(README_TXT_FILES) imdisk.inf runwaitw.exe install.cmd uninstall_imdisk.cmd msgboxw.exe cli\i386\imdisk.exe cpl\i386\imdisk.cpl cplcore\i386\imdisk.cpl svc\i386\imdsksvc.exe sys\i386\imdisk.sys cli\ia64\imdisk.exe cpl\ia64\imdisk.cpl cplcore\ia64\imdisk.cpl svc\ia64\imdsksvc.exe sys\ia64\imdisk.sys cli\amd64\imdisk.exe cpl\amd64\imdisk.cpl cplcore\amd64\imdisk.cpl svc\amd64\imdsksvc.exe sys\amd64\imdisk.sys cli\arm\imdisk.exe cpl\arm\imdisk.cpl cplcore\arm\imdisk.cpl svc\arm\imdsksvc.exe sys\arm\imdisk.sys cli\arm64\imdisk.exe cpl\arm64\imdisk.cpl cplcore\arm64\imdisk.cpl svc\arm64\imdsksvc.exe sys\arm64\imdisk.sys
 	del $(DIST_DIR)\imdisk.7z
 	stampinf -f imdisk.inf -a NTx86,NTia64,NTamd64,NTarm,NTarm64
-	7z a $(DIST_DIR)\imdisk.7z -m0=LZMA:a=2 $(README_TXT_FILES) imdisk.inf runwaitw.exe install.cmd uninstall_imdisk.cmd msgboxw.exe cli\i386\imdisk.exe cpl\i386\imdisk.cpl cplcore\i386\imdisk.cpl svc\i386\imdsksvc.exe sys\i386\imdisk.sys cli\ia64\imdisk.exe cpl\ia64\imdisk.cpl cplcore\ia64\imdisk.cpl svc\ia64\imdsksvc.exe sys\ia64\imdisk.sys cli\amd64\imdisk.exe cpl\amd64\imdisk.cpl cplcore\amd64\imdisk.cpl svc\amd64\imdsksvc.exe sys\amd64\imdisk.sys cli\arm\imdisk.exe cpl\arm\imdisk.cpl cplcore\arm\imdisk.cpl svc\arm\imdsksvc.exe sys\arm\imdisk.sys cli\arm64\imdisk.exe cpl\arm64\imdisk.cpl cplcore\arm64\imdisk.cpl svc\arm64\imdsksvc.exe sys\arm64\imdisk.sys
+	7z a $(DIST_DIR)\imdisk.7z -mf- $(README_TXT_FILES) imdisk.inf runwaitw.exe install.cmd uninstall_imdisk.cmd msgboxw.exe cli\i386\imdisk.exe cpl\i386\imdisk.cpl cplcore\i386\imdisk.cpl svc\i386\imdsksvc.exe sys\i386\imdisk.sys cli\ia64\imdisk.exe cpl\ia64\imdisk.cpl cplcore\ia64\imdisk.cpl svc\ia64\imdsksvc.exe sys\ia64\imdisk.sys cli\amd64\imdisk.exe cpl\amd64\imdisk.cpl cplcore\amd64\imdisk.cpl svc\amd64\imdsksvc.exe sys\amd64\imdisk.sys cli\arm\imdisk.exe cpl\arm\imdisk.cpl cplcore\arm\imdisk.cpl svc\arm\imdsksvc.exe sys\arm\imdisk.sys cli\arm64\imdisk.exe cpl\arm64\imdisk.cpl cplcore\arm64\imdisk.cpl svc\arm64\imdsksvc.exe sys\arm64\imdisk.sys
 
 $(DIST_DIR)\imdisk.zip: $(DIST_DIR)\imdisk.7z
 	del $(DIST_DIR)\imdisk.zip
