@@ -9,6 +9,7 @@ ClassGUID = {4D36E97B-E325-11CE-BFC1-08002BE10318}
 Provider = "LTR Data"
 DriverVer = 03/24/2020,2.1.0.00068
 CatalogFile = ImDiskNet.cat
+PnpLockdown = 1
 
 
 [SourceDisksNames]
@@ -46,7 +47,7 @@ DiscUtils.dll = 1, Release
 DiscUtilsDevio.exe = 1, Release
 
 [DestinationDirs]
-ExeFiles = 12
+ExeFiles = 11
  
 
 [DefaultInstall.ntx86]

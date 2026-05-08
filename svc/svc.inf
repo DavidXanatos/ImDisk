@@ -9,6 +9,7 @@ ClassGUID = {4D36E97B-E325-11CE-BFC1-08002BE10318}
 Provider = "LTR Data"
 DriverVer = 05/08/2026,2.1.2.00073
 CatalogFile = svc.cat
+PnpLockdown = 1
 
 
 [SourceDisksNames]
@@ -31,7 +32,7 @@ imdsksvc.exe = 1, arm
 imdsksvc.exe = 1, arm64
 
 [DestinationDirs]
-ImDskSvcExeFiles = 12
+ImDskSvcExeFiles = 11
  
 
 [DefaultInstall.ntx86]
