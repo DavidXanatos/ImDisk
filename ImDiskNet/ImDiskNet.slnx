@@ -1,0 +1,24 @@
+<Solution>
+  <Configurations>
+    <Platform Name="Any CPU" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Folder Name="/Common/">
+    <File Path="Directory.Build.props" />
+  </Folder>
+  <Project Path="DevioNet/DevioNet.vbproj">
+    <Platform Solution="*|x86" Project="x86" />
+  </Project>
+  <Project Path="DiscUtilsDevio/DiscUtilsDevio.vbproj">
+    <Platform Solution="*|x86" Project="x86" />
+  </Project>
+  <Project Path="ImDiskNet/ImDiskNet.vbproj">
+    <Platform Solution="*|x86" Project="x86" />
+  </Project>
+  <Project Path="ImDiskNetHelpBuilder.shfbproj" Type="7cf6df6d-3b04-46f8-a40b-537d21bca0b4">
+    <BuildDependency Project="DevioNet/DevioNet.vbproj" />
+    <BuildDependency Project="ImDiskNet/ImDiskNet.vbproj" />
+    <Platform Project="AnyCPU" />
+    <Build Project="false" />
+  </Project>
+</Solution>

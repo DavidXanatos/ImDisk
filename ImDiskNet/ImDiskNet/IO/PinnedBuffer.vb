@@ -64,17 +64,23 @@ Namespace IO
             Return New PinnedBuffer(Of T)(obj)
         End Function
 
-#If Not NET_CORE Then
         <SecurityCritical>
         Public Shared Function PtrToStructure(Of T)(ptr As IntPtr) As T
+#If NET451_OR_GREATER OrElse NETCOREAPP OrElse NETSTANDARD Then
+            Return Marshal.PtrToStructure(Of T)(ptr)
+#Else
             Return DirectCast(Marshal.PtrToStructure(ptr, GetType(T)), T)
+#End If
         End Function
 
         <SecurityCritical>
         Public Shared Sub DestroyStructure(Of T)(ptr As IntPtr)
+#If NET451_OR_GREATER OrElse NETCOREAPP OrElse NETSTANDARD Then
+            Marshal.DestroyStructure(Of T)(ptr)
+#Else
             Marshal.DestroyStructure(ptr, GetType(T))
-        End Sub
 #End If
+        End Sub
 
         <SecurityCritical>
         Public Shared Function Serialize(Of T)(obj As T) As Byte()
@@ -127,7 +133,7 @@ Namespace IO
             MyClass.New()
 
             If byteOffset > toalObjectSize Then
-                Throw New ArgumentOutOfRangeException("Argument offset must be within total object size", "offset")
+                Throw New ArgumentOutOfRangeException(NameOf(byteOffset), "Argument offset must be within total object size")
             End If
 
             Initialize(CULng(toalObjectSize - byteOffset))
@@ -252,6 +258,12 @@ Namespace IO
     Public Class PinnedBuffer(Of T As Structure)
         Inherits PinnedBuffer
 
+#If NET451_OR_GREATER OrElse NETCOREAPP OrElse NETSTANDARD Then
+        Public Shared ReadOnly Property ElementSize As Integer = SizeOf(Of T)()
+#Else
+        Public Shared ReadOnly Property ElementSize As Integer = SizeOf(GetType(T))
+#End If
+
         ''' <summary>
         ''' Initializes a new instance with an new type T array and pins memory
         ''' position.
@@ -259,7 +271,7 @@ Namespace IO
         ''' <param name="count">Number of items in new array.</param>
         <SecurityCritical>
         Public Sub New(count As Integer)
-            MyBase.New(New T(count - 1) {}, SizeOf(GetType(T)) * count)
+            MyBase.New(New T(count - 1) {}, _ElementSize * count)
 
         End Sub
 

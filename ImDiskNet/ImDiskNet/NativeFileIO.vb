@@ -5,12 +5,19 @@
 Imports System.ComponentModel
 Imports System.IO
 Imports System.Runtime.InteropServices
+Imports System.Runtime.Versioning
 Imports Microsoft.Win32.SafeHandles
+
 ''' <summary>
 ''' Provides wrappers for Win32 file API. This makes it possible to open everything that
 ''' CreateFile() can open and get a FileStream based .NET wrapper around the file handle.
 ''' </summary>
+#If NETCOREAPP Then
+<SupportedOSPlatform("windows")>
 Public NotInheritable Class NativeFileIO
+#Else
+Public NotInheritable Class NativeFileIO
+#End If
 
 #Region "Win32 API"
     Public NotInheritable Class UnsafeNativeMethods
