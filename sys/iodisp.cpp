@@ -5,7 +5,7 @@ drives from disk image files, in virtual memory or by redirecting I/O
 requests somewhere else, possibly to another machine, through a
 co-operating user-mode service, ImDskSvc.
 
-Copyright (C) 2025 David Xanatos.
+Copyright (C) 2025-2026 David Xanatos.
 Copyright (C) 2005-2026 Olof Lagerkvist.
 
 Permission is hereby granted, free of charge, to any person
