@@ -1846,6 +1846,9 @@ ImDiskCreateDevice(__in PDRIVER_OBJECT DriverObject,
     if (IMDISK_READONLY(CreateData->Flags))
         device_characteristics |= FILE_READ_ONLY_DEVICE;
 
+    // Allow AppContainer-sandboxed processes to access the device
+    device_characteristics |= FILE_DEVICE_ALLOW_APPCONTAINER_TRAVERSAL;
+
     KdPrint
         (("ImDisk: After checks and translations we got this create data:\n"
             "DeviceNumber   = %#x\n"

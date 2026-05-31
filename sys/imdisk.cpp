@@ -269,7 +269,7 @@ DriverEntry(IN PDRIVER_OBJECT DriverObject,
         sizeof(DEVICE_EXTENSION),
         &ctl_device_name,
         FILE_DEVICE_IMDISK,
-        0,
+        FILE_DEVICE_ALLOW_APPCONTAINER_TRAVERSAL,
         FALSE,
         &ImDiskCtlDevice);
 

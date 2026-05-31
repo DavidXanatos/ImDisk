@@ -80,6 +80,11 @@ Copyright (C) The Regents of the University of California.
 
 #define POOL_TAG                         'iDmI'
 
+// Fallback for older WDKs that don't define this constant (requires Windows 8+)
+#ifndef FILE_DEVICE_ALLOW_APPCONTAINER_TRAVERSAL
+#define FILE_DEVICE_ALLOW_APPCONTAINER_TRAVERSAL 0x00020000
+#endif
+
 #include "..\inc\ntkmapi.h"
 #include "..\inc\imdisk.h"
 #include "..\inc\imdproxy.h"

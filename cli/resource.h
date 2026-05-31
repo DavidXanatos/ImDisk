@@ -34,7 +34,6 @@
 #define SORT_HUNGARIAN_DEFAULT          0x0
 #define SORT_GEORGIAN_TRADITIONAL       0x0
 #define __drv_typeConst                 0
-#define IMDISK_MINOR_VERSION            0
 #define PSAPI_VERSION                   1
 #define CREATEPROCESS_MANIFEST_RESOURCE_ID 1
 #define MINIMUM_RESERVED_MANIFEST_RESOURCE_ID 1
@@ -289,7 +288,6 @@
 #define __drv_typeBitset                2
 #define VFF_FILEINUSE                   0x0002
 #define VIFF_DONTDELETEOLD              0x0002
-#define IMDISK_MAJOR_VERSION            2
 #define ISOLATIONAWARE_NOSTATICIMPORT_MANIFEST_RESOURCE_ID 3
 #define SW_SHOWMAXIMIZED                3
 #define SW_MAXIMIZE                     3
@@ -322,7 +320,6 @@
 #define SUBLANG_SPANISH_MODERN          0x03
 #define SORT_CHINESE_BOPOMOFO           0x3
 #define __drv_typeExpr                  3
-#define IMDISK_MINOR_LOW_VERSION        3
 #define SW_SHOWNOACTIVATE               4
 #define SHOW_OPENNOACTIVATE             4
 #define SW_OTHERUNZOOM                  4
